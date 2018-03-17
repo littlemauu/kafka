@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/03/2018 02:05:16 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="unam.ciencias.is.kafka.modelo.Usuario" table="usuario" schema="public" optimistic-lock="version">
+        <id name="idUsuario" type="int">
+            <column name="id_usuario" />
+            <generator class="identity" />
+        </id>
+        <property name="correo" type="string">
+            <column name="correo" not-null="true" unique="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" not-null="true" unique="true" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="contrasena" not-null="true" />
+        </property>
+        <property name="imagen" type="string">
+            <column name="imagen" />
+        </property>
+        <property name="rol" type="string">
+            <column name="rol" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="respondes" table="responde" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usuario" not-null="true" />
+            </key>
+            <one-to-many class="unam.ciencias.is.kafka.modelo.Responde" />
+        </set>
+        <set name="temas" table="tema" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usuario" not-null="true" />
+            </key>
+            <one-to-many class="unam.ciencias.is.kafka.modelo.Tema" />
+        </set>
+    </class>
+</hibernate-mapping>
