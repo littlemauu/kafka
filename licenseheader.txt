@@ -1,0 +1,12 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}The Bugtles, 2018.
+${licensePrefix}-Aguilar Espíndola Ossiel.
+${licensePrefix}-Barajas Tenorio Efraín.
+${licensePrefix}-García Ramos Mauricio E.
+${licensePrefix}-García Ruíz Paulo.
+${licensePrefix}-Ledesma Granados Roberto A.
+<#if licenseLast??>
+${licenseLast}
+</#if>

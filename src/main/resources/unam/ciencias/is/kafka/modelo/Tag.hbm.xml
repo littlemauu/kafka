@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/03/2018 02:05:16 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="unam.ciencias.is.kafka.modelo.Tag" table="tag" schema="public" optimistic-lock="version">
+        <id name="idTag" type="int">
+            <column name="id_tag" />
+            <generator class="identity" />
+        </id>
+        <property name="valor" type="string">
+            <column name="valor" length="40" unique="true" />
+        </property>
+        <set name="temaTags" table="tema_tag" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tag" not-null="true" />
+            </key>
+            <one-to-many class="unam.ciencias.is.kafka.modelo.TemaTag" />
+        </set>
+    </class>
+</hibernate-mapping>

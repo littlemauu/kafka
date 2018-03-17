@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/03/2018 02:05:16 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="unam.ciencias.is.kafka.modelo.Responde" table="responde" schema="public" optimistic-lock="version">
+        <id name="idResponde" type="int">
+            <column name="id_responde" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tema" class="unam.ciencias.is.kafka.modelo.Tema" fetch="select">
+            <column name="id_tema" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="unam.ciencias.is.kafka.modelo.Usuario" fetch="select">
+            <column name="id_usuario" not-null="true" />
+        </many-to-one>
+        <property name="respuesta" type="string">
+            <column name="respuesta" length="4000" not-null="true" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="35" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
