@@ -52,9 +52,9 @@ public class AbstractDAO<T> {
         T resultado = null;
         Transaction transaccion = null;
         Session session = sessionFactory.openSession();
-        // Nombre de la clase DAO
+        // Nombre de clase DAO
         String nomClaseDAO = this.getClass().getSimpleName();
-        // Nombre de la clase asociada
+        // Nombre de la clase asociada a la clase DAO
         String nomClase = nomClaseDAO.substring(0,nomClaseDAO.length() - 3);
         String cadenaId = "id" + nomClase;
         
