@@ -53,7 +53,7 @@ public class AbstractDAO<T> {
         Transaction transaccion = null;
         Session session = sessionFactory.openSession();
         String nombreClase = resultado.getClass().getSimpleName();
-        String cadenaId = "id" + nombreClase.toLowerCase();
+        String cadenaId = "id" + nombreClase;
         
         try {
             transaccion = session.beginTransaction();
@@ -66,7 +66,7 @@ public class AbstractDAO<T> {
         }
         catch (Exception e) {
 
-            if (transaccion!=null) {
+            if (transaccion != null) {
                 transaccion.rollback();
             }
             
