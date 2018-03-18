@@ -52,13 +52,16 @@ public class AbstractDAO<T> {
         T resultado = null;
         Transaction transaccion = null;
         Session session = sessionFactory.openSession();
-        String nombreClase = resultado.getClass().getSimpleName();
-        String cadenaId = "id" + nombreClase.toLowerCase();
+        // Nombre de clase DAO
+        String nomClaseDAO = this.getClass().getSimpleName();
+        // Nombre de la clase asociada a la clase DAO
+        String nomClase = nomClaseDAO.substring(0,nomClaseDAO.length() - 3);
+        String cadenaId = "id" + nomClase;
         
         try {
             transaccion = session.beginTransaction();
             
-            String hql = "from " + nombreClase + " as x where x." +
+            String hql = "from " + nomClase + " as x where x." +
                          cadenaId + " = " + id;
             Query query = session.createQuery(hql);
             resultado = (T)query.uniqueResult();
@@ -66,7 +69,7 @@ public class AbstractDAO<T> {
         }
         catch (Exception e) {
 
-            if (transaccion!=null) {
+            if (transaccion != null) {
                 transaccion.rollback();
             }
             
