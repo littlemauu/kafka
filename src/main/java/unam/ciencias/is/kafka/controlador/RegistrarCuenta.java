@@ -61,7 +61,6 @@ public class RegistrarCuenta {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         String correoTmp;
         
-        // PENDIENTE: Quitarle el sufijo @ciencias... al correo
         // Flujos alternativos
         if (correo == null || !correo.substring(correo.indexOf('@')).
                                equals("@ciencias.unam.mx")) {
@@ -107,7 +106,7 @@ public class RegistrarCuenta {
         usuario.setCorreo(correo);
         usuario.setNombre(nombre);
         usuario.setContrasena(contrasena);
-        usuario.setImagen(imagen);
+        //usuario.setImagen(imagen);
         usuario.setRol("USR");
         usuario.setEstado("INACTIVO");
         usuarioDAO.insert(usuario);
