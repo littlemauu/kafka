@@ -109,7 +109,29 @@ public class Usuario  implements java.io.Serializable {
         this.temas = temas;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (this.correo != null ? this.correo.hashCode() : 0);
+        hash = 29 * hash + (this.nombre != null ? this.nombre.hashCode() : 0);
+        hash = 29 * hash + (this.contrasena != null ? this.contrasena.hashCode() : 0);
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        return true;
+    }
 
 
 }
