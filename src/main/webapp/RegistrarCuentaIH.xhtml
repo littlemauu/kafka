@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The Bugtles, 2018.
+-Aguilar Espíndola Ossiel.
+-Barajas Tenorio Efraín.
+-García Ramos Mauricio E.
+-García Ruíz Paulo.
+-Ledesma Granados Roberto A.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Registrar cuenta</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Content-Script-Type" content="text/javascript" />
+        <script src="scripts/validarRegistro.js"></script>
+    </head>
+    <body>
+        <div>
+            <h:form>
+                <h:outputText value="*Correo electrónico:" />
+                <p:inputText value="#{registrarCuenta.correo}" placeholder="ejemplo@ciencias.unam.mx"/>
+                <br/>
+                <h:outputText value="*Nombre de usuario:" />
+                <p:inputText value="#{registrarCuenta.nombre}" placeholder="nombre"/>
+                <br/>
+                <h:outputText value="*Contraseña:" />
+                <p:inputText value="#{registrarCuenta.contrasena}" placeholder="contraseña"/>
+                <br/>
+                <h:outputText value="*Reingrese su contraseña:" />
+                <p:inputText value="#{registrarCuenta.verifContrasena}" placeholder="contraseña"/>
+                <br/>
+                <h:outputText value="Imagen de perfil:" />
+                <p:fileUpload fileLimit="1" fileUploadListener="#{registrarCuenta.subirImagen}" allowTypes="/(\.|\/)(jpg|jpeg|png|gif)$/"
+                                                  sizeLimit="4096" value="Examinar..." />
+                <br/>
+                <p:commandButton value="Enviar" action="#{registrarCuenta.registrarCuenta()}" />
+            </h:form>
+        </div>
+    </body>
+</html>
