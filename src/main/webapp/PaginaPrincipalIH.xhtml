@@ -38,7 +38,8 @@ The Bugtles, 2018.
                 <f:facet name="header">
                     Últimos temas abiertos
                 </f:facet>
-                <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}" value="#{tema.nombreTema}" style="margin-left:10px" />
+                <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}"
+                        value="-#{tema.nombreTema}: #{paginaPrincipal.preambulo(tema.descripcion)}" style="margin-left:10px" />
                 <br/>
             </p:dataList>
         </p:panel>

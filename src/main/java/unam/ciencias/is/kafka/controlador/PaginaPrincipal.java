@@ -66,6 +66,11 @@ public class PaginaPrincipal {
         temas = temaDAO.listaDeTemas();
         // TERMINA PARTE DE DESPLIEGUE DE LA LISTA DE TEMAS
     }
+    
+    public String preambulo(String descripcion) {
+        return descripcion.substring(0,Integer.min(31,descripcion.length())).
+               replace('\n',' ') + "...";
+    }
 
     public String getMensaje() {
         return mensaje;
