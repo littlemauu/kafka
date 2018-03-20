@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.Query;
+import unam.ciencias.is.kafka.modelo.Usuario;
 
 /**
  *
@@ -47,4 +48,9 @@ public class TemaDAO extends AbstractDAO<Tema> {
         return resultado;
     }
     
+    public Usuario autorTema(String idTema){
+        int idTemaI =  Integer.parseInt(idTema);
+        Tema tema = select (idTemaI);
+        return tema.getUsuario();  
+    }
 }
