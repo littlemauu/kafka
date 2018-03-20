@@ -8,11 +8,14 @@
  */
 package unam.ciencias.is.kafka.controlador;
 
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import unam.ciencias.is.kafka.modelo.Tema;
+import unam.ciencias.is.kafka.modelo.TemaDAO;
 import unam.ciencias.is.kafka.modelo.Usuario;
 import unam.ciencias.is.kafka.modelo.UsuarioDAO;
 
@@ -25,8 +28,10 @@ import unam.ciencias.is.kafka.modelo.UsuarioDAO;
 public class PaginaPrincipal {
     private FacesContext context;
     private String mensaje;
+    private List<Tema> temas;
     
     public PaginaPrincipal() {
+        // PRINCIPIA PARTE DE ACTIVACIÓN DE NUEVAS CUENTAS
         mensaje = "...";
         context = FacesContext.getCurrentInstance();
         HttpServletRequest request =
@@ -54,7 +59,12 @@ public class PaginaPrincipal {
             }
             
         }
-
+        
+        // TERMINA PARTE DE ACTIVACIÓN DE NUEVAS CUENTAS
+        // PRINCIPIA PARTE DE DESPLIEGUE DE LA LISTA DE TEMAS
+        TemaDAO temaDAO = new TemaDAO();
+        temas = temaDAO.listaDeTemas();
+        // TERMINA PARTE DE DESPLIEGUE DE LA LISTA DE TEMAS
     }
 
     public String getMensaje() {
@@ -71,6 +81,14 @@ public class PaginaPrincipal {
 
     public void setContext(FacesContext context) {
         this.context = context;
+    }
+
+    public List<Tema> getTemas() {
+        return temas;
+    }
+
+    public void setTemas(List<Tema> temas) {
+        this.temas = temas;
     }
     
 }

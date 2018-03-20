@@ -8,6 +8,7 @@
  */
 package unam.ciencias.is.kafka.modelo;
 
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,5 +19,32 @@ import org.hibernate.Query;
  * @author ludus
  */
 public class TemaDAO extends AbstractDAO<Tema> {
+    
+    public List<Tema> listaDeTemas() {
+        List<Tema> resultado = null;
+        Transaction transaccion = null;
+        Session session = sessionFactory.openSession();
+        
+        try {
+            transaccion = session.beginTransaction();  
+            String hql = "from Tema as t order by t.idTema desc";
+            Query query = session.createQuery(hql);
+            resultado = (List<Tema>) query.list();
+            transaccion.commit();
+        }
+        catch (Exception e) {
+
+            if (transaccion != null) {
+                transaccion.rollback();
+            }
+            
+            e.printStackTrace(); 
+        }
+        finally {
+            session.close();
+        }
+        
+        return resultado;
+    }
     
 }
