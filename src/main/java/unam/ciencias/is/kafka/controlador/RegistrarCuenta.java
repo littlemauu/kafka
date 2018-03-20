@@ -106,7 +106,7 @@ public class RegistrarCuenta {
         usuario.setCorreo(correo);
         usuario.setNombre(nombre);
         usuario.setContrasena(contrasena);
-        //usuario.setImagen(imagen);
+        usuario.setImagen(imagen);
         usuario.setRol("USR");
         usuario.setEstado("INACTIVO");
         usuarioDAO.insert(usuario);
