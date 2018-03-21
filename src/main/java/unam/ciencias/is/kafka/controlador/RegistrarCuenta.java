@@ -106,6 +106,10 @@ public class RegistrarCuenta {
         usuario.setCorreo(correo);
         usuario.setNombre(nombre);
         usuario.setContrasena(contrasena);
+        
+        if (imagen == null || imagen.length() == 0)
+            imagen = "imagenes/usuarios/#default.jpg";
+        
         usuario.setImagen(imagen);
         usuario.setRol("USR");
         usuario.setEstado("INACTIVO");

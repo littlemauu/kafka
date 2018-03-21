@@ -13,31 +13,48 @@ The Bugtles, 2018.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <head>
+    <h:head>
         <title>Registrar cuenta</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>
-            <h:form>
-                <h:outputText value="*Correo electrónico:" />
-                <p:inputText value="#{registrarCuenta.correo}" placeholder="ejemplo@ciencias.unam.mx"/>
-                <br/>
-                <h:outputText value="*Nombre de usuario:" />
-                <p:inputText value="#{registrarCuenta.nombre}" placeholder="nombre"/>
-                <br/>
-                <h:outputText value="*Contraseña:" />
-                <p:inputText value="#{registrarCuenta.contrasena}" placeholder="contraseña"/>
-                <br/>
-                <h:outputText value="*Reingrese su contraseña:" />
-                <p:inputText value="#{registrarCuenta.verifContrasena}" placeholder="contraseña"/>
-                <br/>
-                <h:outputText value="Imagen de perfil:" />
-                <p:fileUpload fileLimit="1" fileUploadListener="#{registrarCuenta.subirImagen}" allowTypes="/(\.|\/)(jpg|jpeg|png|gif)$/"
-                                                  sizeLimit="4096" value="Examinar..." />
-                <br/>
-                <p:commandButton value="Enviar" action="#{registrarCuenta.registrarCuenta()}" />
-            </h:form>
-        </div>
-    </body>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:outputText value="*Correo electrónico:" />
+            <p:inputText value="#{registrarCuenta.correo}" placeholder="ejemplo@ciencias.unam.mx"/>
+            <br/>
+            <h:outputText value="*Nombre de usuario:" />
+            <p:inputText value="#{registrarCuenta.nombre}" placeholder="nombre"/>
+            <br/>
+            <h:outputText value="*Contraseña:" />
+            <p:password value="#{registrarCuenta.contrasena}"
+                        inline="true"
+                        feedback="true"
+                        promptLabel="Ingrese su contraseña"
+                        weakLabel="Débil"
+                        goodLabel="Aceptable"
+                        strongLabel="Óptimo"
+                        lang="es"
+                        maxlength="13" />
+            <br/>
+            <h:outputText value="*Reingrese su contraseña:" />
+            <p:password value="#{registrarCuenta.verifContrasena}"
+                        lang="es"
+                        maxlength="13" />
+            <br/>
+            <h:outputText value="Imagen de perfil:" />
+            <p:fileUpload fileLimit="1"
+                          fileUploadListener="#{registrarCuenta.subirImagen}"
+                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                          sizeLimit="5242880"
+                          auto="true"
+                          label="Elegir imagen:"
+                          uploadLabel="Subir"
+                          cancelLabel="Cancelar"
+                          invalidSizeMessage="La imagen no debe exceder los 5 Mb"
+                          invalidFileMessage="Formato de imagen no aceptado"
+                          fileLimitMessage="Ya subió una imagen" />
+            <br/>
+            <p:commandButton value="Enviar" action="#{registrarCuenta.registrarCuenta()}" />
+        </h:form>
+    </h:body>
 </html>
