@@ -70,13 +70,14 @@ public class GuardaTema {
     public void setTags(String tags){
         this.tags=tags;
     }
-    public void guardaTema(){
+    public String guardaTema(){
+        String dir="";
         UsuarioDAO user = new UsuarioDAO();
         usuario = user.select(idUsuario);
         Tema tema = new Tema(usuario, nombreTema, descripcion);
         TemaDAO temaDAO = new TemaDAO();
         temaDAO.insert(tema);
-        
+        dir ="temaNuevoIH";
         String[] tagsList = tags.split(",");
         String tag = "";
         Tag t;TagDAO tdao = new TagDAO();
@@ -93,5 +94,6 @@ public class GuardaTema {
             tt = new TemaTag(t,tema);
             ttdao.insert(tt);
         }
+        return dir;
     }
 }

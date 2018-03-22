@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The Bugtles, 2018.
+-Aguilar Espíndola Ossiel.
+-Barajas Tenorio Efraín.
+-García Ramos Mauricio E.
+-García Ruíz Paulo.
+-Ledesma Granados Roberto A.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Tema nuevo</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form>
+                <p:panel id="panel" header="Tema Nuevo" style="margin-right:20px;">
+                    <p:messages id="messages" />
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:outputLabel for="idUser" value="Id Usuario:" />
+                        <p:inputText id="idUser" value="#{guardaTema.idUsuario}" required="true" placeholder="Id Usuario"/>
+                        <p:message for="idUser" />
+                        <p:outputLabel for="nombre" value="Nombre:" />
+                        <p:inputText id="nombre" value="#{guardaTema.nombreTema}" required="true" placeholder="Nombre de Tema"/>
+                        <p:message for="nombre" />
+                        <p:outputLabel for="descripcion" value="Descripcion:" />
+                        <p:inputText id="descripcion" value="#{guardaTema.descripcion}" required="true" placeholder="Descripcion"/>
+                        <p:message for="descripcion" />
+                        <p:outputLabel for="tags" value="Tags:" />
+                        <p:inputText id="tags" value="#{guardaTema.tags}" required="true" placeholder="Separados por comas"/>
+                        <p:message for="tags" />
+                    </h:panelGrid>
+                </p:panel>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:button outcome="PaginaPrincipalIH" value="Pagina Principal" icon="ui-icon-home" />
+                    </f:facet>
+                    <f:facet name="right">
+                        <p:button outcome="temaNuevoIH" value="Limpiar" icon="ui-icon-refresh" iconPos="right"/>
+                        <p:commandButton value=" Guardar " update="panel" action="#{guardaTema.guardaTema()}" dir="temaNuevoIH" 
+                                         icon="ui-icon-check" iconPos="right">
+                        <p:resetInput target="panel" />
+                        </p:commandButton>
+                    </f:facet>
+                </p:toolbar>
+            </h:form>
+
+        </h:body>
+
+    </f:view>
+    
+</html>
