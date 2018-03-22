@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The Bugtles, 2018.
+-Aguilar Espíndola Ossiel.
+-Barajas Tenorio Efraín.
+-García Ramos Mauricio E.
+-García Ruíz Paulo.
+-Ledesma Granados Roberto A.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Guardar Tag</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <h:form>
+                <h:outputText value="Valor:" />
+                <p:inputText value="#{guardaTag.valor}" placeholder="Valor"/>
+                <br/>
+                <p:commandButton value=" Guardar " action="#{guardaTag.guardaTag()}" />
+            </h:form>
+
+        </h:body>
+
+    </f:view>
+    
+</html>
