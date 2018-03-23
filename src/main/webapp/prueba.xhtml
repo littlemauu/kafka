@@ -19,28 +19,6 @@ The Bugtles, 2018.
     </h:head>
     <h:body>
         <h:form enctype="multipart/form-data">
-            <h:outputText value="*Correo electrónico:" />
-            <p:inputText value="#{registrarCuenta.correo}" placeholder="ejemplo@ciencias.unam.mx"/>
-            <br/>
-            <h:outputText value="*Nombre de usuario:" />
-            <p:inputText value="#{registrarCuenta.nombre}" placeholder="nombre"/>
-            <br/>
-            <h:outputText value="*Contraseña:" />
-            <p:password value="#{registrarCuenta.contrasena}"
-                        inline="true"
-                        feedback="true"
-                        promptLabel="Ingrese su contraseña"
-                        weakLabel="Débil"
-                        goodLabel="Aceptable"
-                        strongLabel="Óptimo"
-                        lang="es"
-                        maxlength="13" />
-            <br/>
-            <h:outputText value="*Reingrese su contraseña:" />
-            <p:password value="#{registrarCuenta.verifContrasena}"
-                        lang="es"
-                        maxlength="13" />
-            <br/>
             <h:outputText value="Imagen de perfil:" />
             <p:fileUpload fileLimit="1"
                           fileUploadListener="#{registrarCuenta.subirImagen}"
@@ -53,10 +31,7 @@ The Bugtles, 2018.
                           invalidSizeMessage="La imagen no debe exceder los 5 Mb"
                           invalidFileMessage="Formato de imagen no aceptado"
                           fileLimitMessage="Ya subió una imagen" />
-            <br/>
-            <p:commandButton value="Enviar"
-                             action="#{registrarCuenta.registrarCuenta()}"
-                             ajax="false" />
+
         </h:form>
     </h:body>
 </html>

@@ -97,4 +97,9 @@ public class PaginaPrincipal {
         this.temas = temas;
     }
     
+    public void email() {
+        Email.enviarEmail("ludus_sl@ciencias.unam.mx", "Probando enlaces",
+                "Prueba de enlaces. Haz clic <a href=\"www.google.com\">aquí</a>");
+    }
+    
 }
