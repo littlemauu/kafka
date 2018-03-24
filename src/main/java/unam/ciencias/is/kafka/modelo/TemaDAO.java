@@ -43,7 +43,7 @@ public class TemaDAO extends AbstractDAO<Tema> {
         finally {
             session.close();
         }
-        
+
         return resultado;
     }
     

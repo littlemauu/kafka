@@ -15,36 +15,52 @@ The Bugtles, 2018.
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Kafka</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
     </h:head>
     <h:body>
-        <img src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
-        <br />
-        <h1>Kafka</h1>
-        <p>
-        &iquest;No tienes cuenta? <h:link outcome="RegistrarCuentaIH" value="Registrar" />
-        </p>
-        <p:button outcome="temaNuevoIH" value="Crear Tema Nuevo" styleClass="ui-btn-b"/>
-        <!-- PRINCIPIA PARTE DE ACTIVACIÓN DE NUEVAS CUENTAS -->
-        <h4>#{paginaPrincipal.mensaje}</h4>
-        <!-- TERMINA PARTE DE ACTIVACIÓN DE NUEVAS CUENTAS -->
-        <!-- PRINCIPIA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
-        <p:panel header="Temas abiertos">
-            <p:dataList value="#{paginaPrincipal.temas}" var="tema" id="Temas"
-                        type="none"
-                        paginator="true" rows="10"
-                        paginatorTemplate="{CurrentPageReport} {FirstPageLink}
-                        {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}
-                        {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="10,20,30">
-                <f:facet name="header">
-                    Últimos temas abiertos
-                </f:facet>
-                <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}"
-                        value="-#{tema.nombreTema}: #{paginaPrincipal.preambulo(tema.descripcion)}" style="margin-left:10px" />
-                <br/>
-            </p:dataList>
-        </p:panel>
-        <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
+        <f:event type="preRenderView" listener="#{paginaPrincipal.activar}" />
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="30%">
+                <p:layout>
+                    <p:layoutUnit position="center">
+                        <p:messages autoUpdate="true" />   
+                    </p:layoutUnit>
+                    <p:layoutUnit position="west" size="20%">
+                        <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
+                    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+            <!-- PRINCIPIA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
+            <p:layoutUnit position="center" >
+                <p:panel header="Temas abiertos">
+                    <p:dataList value="#{paginaPrincipal.temas}" var="tema" id="Temas"
+                                type="none"
+                                paginator="true" rows="10"
+                                paginatorTemplate="{FirstPageLink}
+                                {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}
+                                {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="10,20,30"
+                                emptyMessage="No hay temas registrados."
+                                currentPageReportTemplate="">
+                        <f:facet name="header">
+                          Últimos temas abiertos. <span id="tema">¿Ninguno resuelve sus dudas? Puede abrir un tema nuevo: <p:button outcome="temaNuevoIH" value="Crear Tema Nuevo" styleClass="ui-btn-b"/></span>
+                        </f:facet>
+                        <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}"
+                                value="+#{tema.nombreTema}: #{paginaPrincipal.preambulo(tema.descripcion)}" style="margin-left:10px" />
+                        <br/>
+                    </p:dataList>
+                </p:panel>
+            </p:layoutUnit>
+            <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
+            <p:layoutUnit position="east" size="20%">
+                <p:panel>
+                    <!-- Aquí va el formulario para iniciar sesión -->
+                    <f:facet name="footer">
+                        ¿No tiene cuenta en Kafka? Cree una <h:link outcome="RegistrarCuentaIH" value="aquí" />.
+                    </f:facet>
+                </p:panel>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>
-
