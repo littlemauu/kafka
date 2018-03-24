@@ -44,65 +44,39 @@ public class RegistrarCuenta {
     private String contrasena;
     private String verifContrasena;
     private String imagen;
-    private String mensaje;
-    private FacesContext facesContext;
-    private HttpSession httpSession;
     //private String rol;
     //private String estado;
     
     public RegistrarCuenta() {
-        facesContext = FacesContext.getCurrentInstance();
-        httpSession = (HttpSession) facesContext.getExternalContext().
-                                    getSession(true);
-        mensaje = ((String) httpSession.getAttribute("error")) +
-                   " Ingrese sus datos a continuación:";
-        
-        if (mensaje == null)
-            mensaje = "Ingrese sus datos a continuación:";
     }
     
     public String registrarCuenta() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         String correoTmp;
         
-        // Flujos alternativos
-        if (correo == null || !correo.substring(correo.indexOf('@')).
-                               equals("@ciencias.unam.mx")) {
-            httpSession.setAttribute("error",
-                                     "La dirección de correo electrónico " +
-                                     "debe ser @ciencias.unam.mx.");
-            return "RegistrarCuentaIH?faces-redirect=true";
-        }
-        
         correoTmp = correo.substring(0,correo.indexOf('@'));
         correo = correoTmp;
         
-        if (contrasena == null || verifContrasena == null ||
-                 !contrasena.equals(verifContrasena)) {
-            httpSession.setAttribute("error",
-                                     "La contraseña y su verificación " +
-                                     "no coinciden.");
-            return "RegistrarCuentaIH?faces-redirect=true";
-        }
-        else if (contrasena.length() < 8) {
-            httpSession.setAttribute("error",
-                                     "La contraseña debe constar de al menos " +
-                                     "ocho caracteres.");
-            return "RegistrarCuentaIH?faces-redirect=true";
-        }
-        else if (usuarioDAO.existeUsuarioConCorreo(correo)) {
-            httpSession.setAttribute("error",
+        if (usuarioDAO.existeUsuarioConCorreo(correo)) {
+            FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                      "La dirección de correo electrónico \"" +
-                                     correo + "\" ya está registrada. " +
-                                     "Proporcione una dirección distinta.");
-            return "RegistrarCuentaIH?faces-redirect=true";
+                                     correo + "@ciencias.unam.mx\" ya está " +
+                                     "registrada. Proporcione una " +
+                                     "dirección distinta.",
+                                     null));
+            return "";
         }
         else if (usuarioDAO.existeUsuarioConNombre(nombre)) {
-            httpSession.setAttribute("error",
+            FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                      "El nombre de usuario \"" + nombre +
-                                     "\" ya está registrado. " +
-                                     "Elija un nombre de usuario distinto.");
-            return "RegistrarCuentaIH?faces-redirect=true";
+                                     "\" ya está registrado." +
+                                     " Elija un nombre de usuario distinto.",
+                                     null));
+            return "";
         }
         
         // Flujo normal
@@ -138,20 +112,21 @@ public class RegistrarCuenta {
         UploadedFile archivo = evento.getFile();
         String nombreArchivo = archivo.getFileName();
         FacesMessage avisoDeExito =
-                new FacesMessage("Éxito",nombreArchivo + " se ha subido.");
-        FacesContext.getCurrentInstance().addMessage(null, avisoDeExito);
+                new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                 nombreArchivo + " se ha subido.",
+                                 null);
         
         try {
             // Generamos un nombre único añadiendo como prefijo el timestamp
             // actual al nombre del archivo subido
             guardarImagen(Long.toHexString((new Date()).getTime()) +
                           nombreArchivo,archivo.getInputstream());
+            FacesContext.getCurrentInstance().addMessage(null, avisoDeExito);
         }
         catch (IOException e) {
-            e.printStackTrace();
             FacesMessage avisoDeError =
-                    new FacesMessage("Subida infructuosa",
-                            "No fue posible subir " + nombreArchivo + ".");
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                            "No fue posible subir " + nombreArchivo + ".",null);
             FacesContext.getCurrentInstance().addMessage(null,avisoDeError);
         }
         
@@ -182,35 +157,14 @@ public class RegistrarCuenta {
             salida.close();
         }
         catch (IOException e) {
-            System.out.println(e.getMessage());
+            FacesMessage avisoDeError =
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                            "No fue posible escribir " + nombreArchivo + ".",
+                            null);
+            FacesContext.getCurrentInstance().addMessage(null,avisoDeError);
         }
 
     }
-
-    /*public void guardarImagen(String nombreArchivo,BufferedImage entrada) {
-   
-        try {
-            ServletContext servletContext =
-                    (ServletContext) FacesContext.getCurrentInstance().
-                                     getExternalContext().getContext();
-            String destination = (servletContext.getRealPath("/")) +
-                                 "/imagenes/usuarios/";
-            OutputStream salida =
-                    new FileOutputStream(new File(destination + nombreArchivo));
-            ImageIO.write(entrada,
-                          nombreArchivo.substring(nombreArchivo.
-                                                  lastIndexOf('.') + 1),
-                          salida);     
-            imagen = "imagenes/usuarios/" + nombreArchivo;
-            salida.flush();
-            salida.close();
-            System.out.println("Imagen guardada");
-        }
-        catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-        
-    }*/
 
     public String getVerifContrasena() {
         return verifContrasena;
@@ -218,14 +172,6 @@ public class RegistrarCuenta {
 
     public void setVerifContrasena(String verifContrasena) {
         this.verifContrasena = verifContrasena;
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
     }
 
     public String getCorreo() {

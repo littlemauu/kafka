@@ -9,7 +9,6 @@
 package unam.ciencias.is.kafka.controlador;
 
 import java.util.List;
-import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -27,14 +26,12 @@ import unam.ciencias.is.kafka.modelo.UsuarioDAO;
 @ManagedBean
 @ViewScoped
 public class PaginaPrincipal {
-    private FacesContext context;
     private String mensaje;
     private List<Tema> temas;
     
-    public PaginaPrincipal() {
+    public void activar() {
         // PRINCIPIA PARTE DE ACTIVACIÓN DE NUEVAS CUENTAS
         mensaje = "...";
-        context = FacesContext.getCurrentInstance();
         HttpServletRequest request =
                 (HttpServletRequest) FacesContext.getCurrentInstance().
                         getExternalContext().getRequest();
@@ -45,23 +42,33 @@ public class PaginaPrincipal {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             
             if (usuarioDAO.activarCuenta(usuarioNombre,usuarioHash)) {
+                FacesMessage avisoDeActivacion =
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                 "Felicidades, " + usuarioNombre +
+                                 ". Su cuenta fue activada exitosamente. " +
+                                 "Ahora puede iniciar sesión.",
+                                 null);
                 mensaje = "Su cuenta fue activada exitosamente. " +
                           "Ahora puede iniciar sesión.";
-                /*context.addMessage(null,
-                        new FacesMessage(
-                                "Su cuenta fue activada exitosamente. " +
-                                "Ahora puede iniciar sesión."));*/
+                FacesContext.getCurrentInstance().
+                        addMessage(null,avisoDeActivacion);
             }
             else {
+                FacesMessage avisoDeNoActivacion =
+                        new FacesMessage(FacesMessage.SEVERITY_FATAL,
+                                 "Error: la activación de la cuenta " +
+                                         usuarioNombre + " es imposible.",
+                                 null);
                 mensaje = "Error: Activación de cuenta imposible.";
-                /*context.addMessage(null,
-                        new FacesMessage(
-                                "Error: Activación de cuenta imposible."));*/
+                FacesContext.getCurrentInstance().
+                        addMessage(null,avisoDeNoActivacion);
             }
             
         }
-        
         // TERMINA PARTE DE ACTIVACIÓN DE NUEVAS CUENTAS
+    }
+    
+    public PaginaPrincipal() {
         // PRINCIPIA PARTE DE DESPLIEGUE DE LA LISTA DE TEMAS
         TemaDAO temaDAO = new TemaDAO();
         temas = temaDAO.listaDeTemas();
@@ -79,14 +86,6 @@ public class PaginaPrincipal {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
-    }
-
-    public FacesContext getContext() {
-        return context;
-    }
-
-    public void setContext(FacesContext context) {
-        this.context = context;
     }
 
     public List<Tema> getTemas() {

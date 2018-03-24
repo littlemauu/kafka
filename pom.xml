@@ -66,6 +66,11 @@
             <artifactId>commons-io</artifactId>
             <version>1.4</version>
         </dependency>
+        <dependency>  
+            <groupId>org.primefaces.themes</groupId>  
+            <artifactId>le-frog</artifactId>  
+            <version>1.0.10</version>  
+        </dependency>
     </dependencies>
 
     <build>
