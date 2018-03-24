@@ -44,7 +44,7 @@ The Bugtles, 2018.
                                 emptyMessage="No hay temas registrados."
                                 currentPageReportTemplate="">
                         <f:facet name="header">
-                            Últimos temas abiertos
+                          Últimos temas abiertos. <span id="tema">¿Ninguno resuelve sus dudas? Puede abrir un tema nuevo: <p:button outcome="temaNuevoIH" value="Crear Tema Nuevo" styleClass="ui-btn-b"/></span>
                         </f:facet>
                         <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}"
                                 value="+#{tema.nombreTema}: #{paginaPrincipal.preambulo(tema.descripcion)}" style="margin-left:10px" />

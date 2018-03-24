@@ -28,6 +28,11 @@ public class Tema  implements java.io.Serializable {
         this.nombreTema = nombreTema;
         this.descripcion = descripcion;
     }
+    public Tema(Usuario usuario, String nombreTema, String descripcion) {
+        this.usuario = usuario;
+        this.nombreTema = nombreTema;
+        this.descripcion = descripcion;
+    }
     public Tema(int idTema, Usuario usuario, String nombreTema, String descripcion, Set respondes, Set temaTags) {
        this.idTema = idTema;
        this.usuario = usuario;
