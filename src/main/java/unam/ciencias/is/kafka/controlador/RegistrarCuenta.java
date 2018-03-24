@@ -140,24 +140,14 @@ public class RegistrarCuenta {
         FacesMessage avisoDeExito =
                 new FacesMessage("Éxito",nombreArchivo + " se ha subido.");
         FacesContext.getCurrentInstance().addMessage(null, avisoDeExito);
-        System.out.println("$$$$$$$$$" + nombreArchivo + "$$$$$$$$$");
+        
         try {
-            System.out.println("$$$$$$$$$ 0 $$$$$$$$$" + archivo.getSize());
-            System.out.println("$$$$$$$$$ 1 $$$$$$$$$" + archivo.getContents() == null);
-            //InputStream flujo = new ByteArrayInputStream(archivo.getContents());
-            System.out.println("$$$$$$$$$ 2 $$$$$$$$$");
-            //BufferedImage img = ImageIO.read(flujo); //ImageIO.read(archivo.getInputstream());
-            System.out.println("$$$$$$$$$ 3 $$$$$$$$$");
-            //BufferedImage imgEscalada = escalarImagen(img,300,300);
-            System.out.println("$$$$$$$$$ GUARDAREMOS LA IMAGEN $$$$$$$$$");
             // Generamos un nombre único añadiendo como prefijo el timestamp
             // actual al nombre del archivo subido
             guardarImagen(Long.toHexString((new Date()).getTime()) +
                           nombreArchivo,archivo.getInputstream());
-            System.out.println("$$$$$$$$$ YA LA GUARDAMOS $$$$$$$$$");
         }
         catch (IOException e) {
-            System.out.println("$$$$$$$$$ ERROR 1 $$$$$$$$$");
             e.printStackTrace();
             FacesMessage avisoDeError =
                     new FacesMessage("Subida infructuosa",
@@ -165,19 +155,6 @@ public class RegistrarCuenta {
             FacesContext.getCurrentInstance().addMessage(null,avisoDeError);
         }
         
-    }
-    
-    public static BufferedImage escalarImagen(BufferedImage img,
-                                              int ancho,int alto) {
-        BufferedImage imgEscalada = null;
-        
-        if (img != null) {
-            imgEscalada = new BufferedImage(ancho,alto,img.getType());
-            Graphics2D graphics2D = imgEscalada.createGraphics();
-            graphics2D.drawImage(img,0,0,ancho,alto,null);
-            graphics2D.dispose();
-        }
-        return imgEscalada;
     }
     
     public void guardarImagen(String nombreArchivo,InputStream entrada) {
@@ -203,54 +180,12 @@ public class RegistrarCuenta {
             entrada.close();
             salida.flush();
             salida.close();
-            /*
-            ImageIO.write(img,
-                          nombreArchivo.substring(nombreArchivo.
-                                                  lastIndexOf('.') + 1),
-                          salida);
-             */
-            //imagen = "imagenes/usuarios/" + nombreArchivo;
-            //salida.flush();
-            //salida.close();
-            System.out.println("##### Imagen guardada #####");
         }
         catch (IOException e) {
-            System.out.println("##### ERROR 2 #####");
             System.out.println(e.getMessage());
         }
 
     }
-    
-    /*public void guardarImagen(String nombreArchivo,byte[] img) {
-   
-        try {
-            ServletContext servletContext =
-                    (ServletContext) FacesContext.getCurrentInstance().
-                                     getExternalContext().getContext();
-            String ruta = (servletContext.getRealPath("/")) +
-                                 "/imagenes/usuarios/";
-            OutputStream salida =
-                    new FileOutputStream(new File(ruta + nombreArchivo));
-            FileOutputStream fos = new FileOutputStream(new File(ruta + nombreArchivo));
-            fos.write(img);
-            fos.close();
-            
-            ImageIO.write(img,
-                          nombreArchivo.substring(nombreArchivo.
-                                                  lastIndexOf('.') + 1),
-                          salida);
-
-            imagen = "imagenes/usuarios/" + nombreArchivo;
-            //salida.flush();
-            //salida.close();
-            System.out.println("#####Imagen guardada#####");
-        }
-        catch (IOException e) {
-            System.out.println("#####ERROR#####");
-            System.out.println(e.getMessage());
-        }
-        
-    }*/
 
     /*public void guardarImagen(String nombreArchivo,BufferedImage entrada) {
    
