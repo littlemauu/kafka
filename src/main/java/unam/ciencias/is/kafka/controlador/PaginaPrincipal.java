@@ -26,12 +26,10 @@ import unam.ciencias.is.kafka.modelo.UsuarioDAO;
 @ManagedBean
 @ViewScoped
 public class PaginaPrincipal {
-    private String mensaje;
     private List<Tema> temas;
     
     public void activar() {
         // PRINCIPIA PARTE DE ACTIVACIÓN DE NUEVAS CUENTAS
-        mensaje = "...";
         HttpServletRequest request =
                 (HttpServletRequest) FacesContext.getCurrentInstance().
                         getExternalContext().getRequest();
@@ -48,8 +46,6 @@ public class PaginaPrincipal {
                                  ". Su cuenta fue activada exitosamente. " +
                                  "Ahora puede iniciar sesión.",
                                  null);
-                mensaje = "Su cuenta fue activada exitosamente. " +
-                          "Ahora puede iniciar sesión.";
                 FacesContext.getCurrentInstance().
                         addMessage(null,avisoDeActivacion);
             }
@@ -59,7 +55,6 @@ public class PaginaPrincipal {
                                  "Error: la activación de la cuenta " +
                                          usuarioNombre + " es imposible.",
                                  null);
-                mensaje = "Error: Activación de cuenta imposible.";
                 FacesContext.getCurrentInstance().
                         addMessage(null,avisoDeNoActivacion);
             }
@@ -78,14 +73,6 @@ public class PaginaPrincipal {
     public String preambulo(String descripcion) {
         return descripcion.substring(0,Integer.min(31,descripcion.length())).
                replace('\n',' ') + "...";
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
     }
 
     public List<Tema> getTemas() {
