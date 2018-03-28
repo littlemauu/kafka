@@ -14,49 +14,107 @@ The Bugtles, 2018.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Tema nuevo</title>
-            </f:facet>
-        </h:head>
-
-        <h:body>
-            <h:form>
-                <p:panel id="panel" header="Tema Nuevo" style="margin-right:20px;">
-                    <p:messages id="messages" />
-                    <h:panelGrid columns="3" cellpadding="5">
-                        <p:outputLabel for="idUser" value="Id Usuario:" />
-                        <p:inputText id="idUser" value="#{guardaTema.idUsuario}" required="true" placeholder="Id Usuario"/>
-                        <p:message for="idUser" />
-                        <p:outputLabel for="nombre" value="Nombre:" />
-                        <p:inputText id="nombre" value="#{guardaTema.nombreTema}" required="true" placeholder="Nombre de Tema"/>
-                        <p:message for="nombre" />
-                        <p:outputLabel for="descripcion" value="Descripcion:" />
-                        <p:inputText id="descripcion" value="#{guardaTema.descripcion}" required="true" placeholder="Descripcion"/>
-                        <p:message for="descripcion" />
-                        <p:outputLabel for="tags" value="Tags:" />
-                        <p:inputText id="tags" value="#{guardaTema.tags}" required="true" placeholder="Separados por comas"/>
-                        <p:message for="tags" />
-                    </h:panelGrid>
-                </p:panel>
-                <p:toolbar>
-                    <f:facet name="left">
-                        <p:button outcome="PaginaPrincipalIH" value="Pagina Principal" icon="ui-icon-home" />
-                    </f:facet>
-                    <f:facet name="right">
-                        <p:button outcome="temaNuevoIH" value="Limpiar" icon="ui-icon-refresh" iconPos="right"/>
-                        <p:commandButton value=" Guardar " update="panel" action="#{guardaTema.guardaTema()}" dir="temaNuevoIH" 
-                                         icon="ui-icon-check" iconPos="right">
-                        <p:resetInput target="panel" />
-                        </p:commandButton>
-                    </f:facet>
-                </p:toolbar>
-            </h:form>
-
-        </h:body>
-
-    </f:view>
-    
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <title>Tema nuevo</title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north"
+                          size="30%">
+                <p:layout>
+                    <p:layoutUnit position="center">
+                        <p:messages id="message"
+                                    autoUpdate="true" />   
+                    </p:layoutUnit>
+                    <p:layoutUnit position="west"
+                                  size="30%">
+                        <img id="logo"
+                             src="imagenes/kafka-logo.png"
+                             alt="Logo de Kafka" />
+                    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <h:form>
+                    <p:panel id="panel"
+                             header="Tema Nuevo">
+                        <h:panelGrid columns="3"
+                                     cellpadding="5">
+                            <p:outputLabel for="idUser"
+                                           value="Id Usuario:"/>
+                            <p:inputText size="50"
+                                         id="idUser"
+                                         value="#{guardaTema.idUsuario}"
+                                         required="true"
+                                         placeholder="Id Usuario"/>
+                            <p:message for="idUser"/>
+                            <p:outputLabel for="nombre"
+                                           value="Nombre:"/>
+                            <p:inputText size="50"
+                                         id="nombre"
+                                         value="#{guardaTema.nombreTema}"
+                                         required="true"
+                                         placeholder="Nombre de Tema"
+                                         requiredMessage="El tema requiere un nombre"/>
+                            <p:message for="nombre"/>
+                            <p:outputLabel for="desc"
+                                           value="Descripcion:"/>
+                            <p:inputTextarea autoResize="false"
+                                             cols="50"
+                                             id="desc"
+                                             value="#{guardaTema.descripcion}"
+                                             rendered="true"
+                                             requiredMessage="Debe dar una descripcion para el Tema"
+                                             placeholder="Descripcion del Tema"/>
+                            <p:message for="desc"/>
+                            <p:outputLabel for="tags"
+                                           value="Tags:" />
+                            <p:inputText size="50"
+                                         id="tags"
+                                         value="#{guardaTema.tags}"
+                                         required="true"
+                                         placeholder="Separados por comas"
+                                         requiredMessage="Debe proporcionar al menos un Tag"/>
+                            <p:message for="tags"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <p:button outcome="PaginaPrincipalIH"
+                                      value="Pagina Principal"
+                                      icon="ui-icon-home" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:button outcome="temaNuevoIH"
+                                      value="Limpiar"
+                                      icon="ui-icon-refresh"
+                                      iconPos="right"/>
+                            <p:commandButton value=" Guardar "
+                                             update="panel"
+                                             action="#{guardaTema.guardaTema()}"
+                                             dir="temaNuevoIH" 
+                                             icon="ui-icon-check"
+                                             iconPos="right">
+                            <p:resetInput target="panel" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="west"
+                          size="20%">
+                <li style="color: black">
+                    -Todos los campos son obligatorios.
+                </li><li/>
+                <li style="color: black">
+                    -Los Tags deben estar separados por comas, sin espacios.
+                </li><li/>
+                <li style="color: black">
+                    -Al menos debe escribirse un Tag
+                </li>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
 </html>
