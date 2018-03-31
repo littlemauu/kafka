@@ -27,6 +27,9 @@ public class Tag  implements java.io.Serializable {
        this.valor = valor;
        this.temaTags = temaTags;
     }
+    public Tag(String valor) {
+       this.valor = valor;
+    }
    
     public int getIdTag() {
         return this.idTag;

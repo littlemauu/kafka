@@ -1,0 +1,25 @@
+/*
+The Bugtles, 2018.
+-Aguilar Espíndola Ossiel.
+-Barajas Tenorio Efraín.
+-García Ramos Mauricio E.
+-García Ruíz Paulo.
+-Ledesma Granados Roberto A.
+*/
+/* 
+    Created on : 24/03/2018, 08:08:02 AM
+    Author     : ludus
+*/
+
+body {
+   background-image: url('/kafka/imagenes/fondo.jpg');
+}
+
+.ui-layout-unit {
+    border: 0;
+}
+
+#logo {
+    max-height: 90%;
+    max-width: 90%;
+}
