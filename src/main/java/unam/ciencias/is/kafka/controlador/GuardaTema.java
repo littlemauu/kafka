@@ -77,9 +77,9 @@ public class GuardaTema {
         Tema tema = new Tema(usuario, nombreTema, descripcion);
         TemaDAO temaDAO = new TemaDAO();
         temaDAO.insert(tema);
-        dir ="temaNuevoIH";
+        dir ="PaginaPrincipalIH";
         String[] tagsList = tags.split(",");
-        String tag = "";
+        String tag;
         Tag t;TagDAO tdao = new TagDAO();
         TemaTag tt; TemaTagDAO ttdao = new TemaTagDAO();
         int idtag;
