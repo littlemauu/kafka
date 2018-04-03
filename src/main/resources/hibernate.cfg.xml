@@ -48,6 +48,7 @@ Contributor(s):
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <mapping resource="unam/ciencias/is/kafka/modelo/Responde.hbm.xml"/>
     <mapping resource="unam/ciencias/is/kafka/modelo/TemaTag.hbm.xml"/>
     <mapping resource="unam/ciencias/is/kafka/modelo/Tag.hbm.xml"/>
