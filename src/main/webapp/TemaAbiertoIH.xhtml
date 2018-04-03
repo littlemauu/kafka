@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!--
 The Bugtles, 2018.
 -Aguilar Espíndola Ossiel.
@@ -7,16 +7,83 @@ The Bugtles, 2018.
 -García Ruíz Paulo.
 -Ledesma Granados Roberto A.
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <head>
+    <h:head>
         <title>#{temaAbierto.titulo}</title>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="30%">
+                <p:layout>
+                    <p:layoutUnit position="center">
+                        <p:messages autoUpdate="true" />   
+                    </p:layoutUnit>
+                    <p:layoutUnit position="west" size="20%">
+                        <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
+                    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" >
+                <p:dataTable var="resp"
+                             value="#{temaAbierto.respuestas}"
+                             paginator="true" rows="10"
+                             paginatorTemplate="{FirstPageLink}
+                             {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}
+                             {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30"
+                             emptyMessage="Nadie ha respondido a este tema."
+                             currentPageReportTemplate=""
+                             lazy="false">
+                    <f:attribute name="collectionType" value="java.util.List" />
+                    <p:column style="width:20%;">
+                        <f:facet name="header">
+                            <!-- Datos de quien pregunta -->
+                            <p:graphicImage value="#{temaAbierto.rutaDeImagen(temaAbierto.autor)}"
+                                            class="imgperf"
+                                            alt="Imagen de perfil"
+                                            style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
+                            <br />
+                            <div style="text-align: center">
+		            #{temaAbierto.autor.nombre}
+                            </div>
+                        </f:facet>
+                        <!-- Datos de quienes responden -->
+                        <div style="text-align: center">
+                            <p:graphicImage value="#{temaAbierto.rutaDeImagen(resp.usuario)}"
+                                            class="imgperf"                                
+                                            alt="Imagen de perfil"
+                                            style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
+                            <br />
+		            #{resp.usuario.nombre}
+                            <br />
+		            #{resp.fecha}
+                        </div>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <!-- Pregunta -->
+                            <div style="font-size: x-large;">
+		            #{temaAbierto.tema.nombreTema}
+                            </div>
+                            <div>
+		            #{temaAbierto.tema.descripcion}
+                            </div>
+                        </f:facet>
+                        <!-- Respuestas -->
+		        #{resp.respuesta}
+                    </p:column>
+                </p:dataTable>
+            </p:layoutUnit>
+            <p:layoutUnit position="south" size="15%">
+                <!-- Parte de Efraín -->
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
 </html>
