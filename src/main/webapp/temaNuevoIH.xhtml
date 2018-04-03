@@ -65,7 +65,7 @@ The Bugtles, 2018.
                                              cols="50"
                                              id="desc"
                                              value="#{guardaTema.descripcion}"
-                                             rendered="true"
+                                             required="true"
                                              requiredMessage="Debe dar una descripcion para el Tema"
                                              placeholder="Descripcion del Tema"/>
                             <p:message for="desc"/>
@@ -82,7 +82,7 @@ The Bugtles, 2018.
                     </p:panel>
                     <p:toolbar>
                         <f:facet name="left">
-                            <p:button outcome="PaginaPrincipalIH"
+                            <p:button outcome="PaginaPrincipalIH" id="home"
                                       value="Pagina Principal"
                                       icon="ui-icon-home" />
                         </f:facet>

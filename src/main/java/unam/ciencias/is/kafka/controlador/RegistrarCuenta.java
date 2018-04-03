@@ -86,7 +86,7 @@ public class RegistrarCuenta {
         usuario.setContrasena(contrasena);
         
         if (imagen == null || imagen.length() == 0)
-            imagen = "imagenes/usuarios/#default.jpg";
+            imagen = "imagenes/usuarios/default.jpg";
         
         usuario.setImagen(imagen);
         usuario.setRol("USR");
