@@ -12,6 +12,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.Query;
+import java.util.List;
+import org.hibernate.SQLQuery;
+import org.hibernate.cfg.Configuration;
+
 
 /**
  *
@@ -110,6 +114,22 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         }
         
         return false;
+    }
+    
+     public Usuario valida(String nombre,String contrasena){
+        SessionFactory factory; 
+        factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.openSession();
+        String sql = "SELECT * FROM usuario where nombre ='" + nombre + "' and contrasena ='" + contrasena+"'";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.addEntity(Usuario.class);
+        List<Usuario> usuarios = query.list();
+        if (usuarios!= null && !usuarios.isEmpty()) {
+            System.out.println(usuarios.get(0));
+            return usuarios.get(0);
+        }else{
+            return null;
+        }
     }
     
 }
