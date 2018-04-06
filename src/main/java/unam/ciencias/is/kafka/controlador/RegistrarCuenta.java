@@ -54,26 +54,32 @@ public class RegistrarCuenta {
         
         correoTmp = correo.substring(0,correo.indexOf('@'));
         correo = correoTmp;
+        boolean correoOcupado = usuarioDAO.existeUsuarioConCorreo(correo);
+        boolean nombreOcupado = usuarioDAO.existeUsuarioConNombre(nombre);
         
-        if (usuarioDAO.existeUsuarioConCorreo(correo)) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     "La dirección de correo electrónico \"" +
-                                     correo + "@ciencias.unam.mx\" ya está " +
-                                     "registrada. Proporcione una " +
-                                     "dirección distinta.",
-                                     null));
-            return "";
-        }
-        else if (usuarioDAO.existeUsuarioConNombre(nombre)) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     "El nombre de usuario \"" + nombre +
-                                     "\" ya está registrado." +
-                                     " Elija un nombre de usuario distinto.",
-                                     null));
+        if (correoOcupado || nombreOcupado) {
+            
+            if (correoOcupado) {
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                "La dirección de correo electrónico \""
+                                + correo + "@ciencias.unam.mx\" ya está "
+                                + "registrada. Proporcione una "
+                                + "dirección distinta.",
+                                null));
+            }
+            
+            if (nombreOcupado) {
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                "El nombre de usuario \"" + nombre
+                                + "\" ya está registrado."
+                                + " Elija un nombre de usuario distinto.",
+                                null));
+            }
+            
             return "";
         }
         
