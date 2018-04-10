@@ -27,7 +27,7 @@ import unam.ciencias.is.kafka.modelo.UsuarioDAO;
 @ManagedBean
 @ViewScoped
 
-public class TemaNuevo {
+public class TemaNuevo {/*
     private TemaTag tt;
     private Tag tag;
     private int idTema;
@@ -93,7 +93,7 @@ public class TemaNuevo {
         this.tags=tags;
     }
     
-    public void temaNuevo(){/*
+    public void temaNuevo(){
         String valorTag;
         int idtag, idtema;
         UsuarioDAO user = new UsuarioDAO();
@@ -117,6 +117,6 @@ public class TemaNuevo {
             tt = new TemaTag(tag,tema);//Crea un TemaTag nuevo
             ttDAO.insert(tt);//Guarda el TemaTag Nuevo
         }//end For
-        }catch (Exception e) {e.printStackTrace();}*/
-    }//end temaNuevo()
+        }catch (Exception e) {e.printStackTrace();}
+    }//end temaNuevo()*/
 }
