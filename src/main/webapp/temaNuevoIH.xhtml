@@ -22,6 +22,7 @@ The Bugtles, 2018.
     </h:head>
     <h:body>
         <p:layout fullPage="true">
+            <!-- ENCABEZADO CON EL LOGO DE KAFKA Y DONDE APARECERAN MENSAJES DE ERROR -->
             <p:layoutUnit position="north"
                           size="30%">
                 <p:layout>
@@ -37,11 +38,12 @@ The Bugtles, 2018.
                     </p:layoutUnit>
                 </p:layout>
             </p:layoutUnit>
-            <!--Aquí comienza el panel de toma de datos -->
+            <!-- AQUI COMIENZA EL AREA DE TOMA DE DATOS PARA EL TEMA NUEVO -->
             <p:layoutUnit position="center">
                 <c:if test="#{manejoSesion.getUsuario()!=null}">
-                    <!--Solo para asegurarnos que se haya iniciado secion-->
+                    <!-- ESTO APARECE EN EL PANEL CENTRAL SOLO SI HAY UNA SECIÓN INICIADA-->
                     <h:form>
+                        <!-- PANEL DE TOMA DE DATOS -->
                         <p:panel id="panel"
                                  header="Tema Nuevo">
                             <h:panelGrid columns="3"
@@ -76,6 +78,7 @@ The Bugtles, 2018.
                                 <p:message for="tags"/>
                             </h:panelGrid>
                         </p:panel>
+                        <!-- BARRA CON LOS BOTONES PARA REGRESAR A LA PAGINA PRINCIPAL, LIMPIAR Y GUARDAR -->
                         <p:toolbar>
                             <f:facet name="left">
                                 <p:button outcome="PaginaPrincipalIH"
@@ -101,16 +104,27 @@ The Bugtles, 2018.
                     </h:form>
                 </c:if>
                 <c:if test="#{manejoSesion.getUsuario()==null}">
-                    <!--mensage por si se llego a esta pagina sin iniciar secion-->
-                    <li style="color: whitesmoke">
-                        -De alguna extraña forma has llegado al limbo.
-                    </li> <li/> <li/>
-                    <li style="color: whitesmoke">
-                        Lo siento pero debes <h:link value="regresar" outcome="PaginaPrincipalIH" /> para iniciar secion
-                    </li>
+                    <!--ESTO SE PRESENTA EN EL PANEL CENTRAL SI NO HAY UNA SECIÓN INICIADA-->
+                    <p:panel style=" background-image: url(imagenes/kafka-logo.png); background-repeat: no-repeat; background-position: right">
+                        <li style="color: aqua; font-family: fantasy; font-weight: 500; font-size: 200%">
+                            - / | \ - / | \ - / | \ - / | \ - / | \ - / | \ - / | \ - / | \- / | \ - / | \-
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-style: italic; font-weight: 500; font-size: 200%">
+                            Lo sentimos, pero para estar aquí debes tener iniciada seción.
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-style: italic; font-weight: 500; font-size: 200%">
+                            Si ya habias iniciado seción, es posible que esta haya caducado
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-style: italic; font-weight: 500; font-size: 200%">
+                            Ahora debes <h:link value="regresar" outcome="PaginaPrincipalIH" style="color: aqua" /> para iniciar seción
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-weight: 500; font-size: 200%">
+                            - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / -
+                        </li>
+                    </p:panel>
                 </c:if>
             </p:layoutUnit>
-            <!-- Instrucciones para la toma de datos -->
+            <!-- INSTRUCCIONES PARA LA TOMA DE DATOS -->
             <p:layoutUnit position="west"
                           size="20%">
                 <li style="color: black">
