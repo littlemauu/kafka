@@ -37,4 +37,8 @@
     <welcome-file-list>
         <welcome-file>faces/PaginaPrincipalIH.xhtml</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/ErrorIH.xhtml</location>
+    </error-page>
 </web-app>
