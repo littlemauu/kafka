@@ -57,6 +57,9 @@ public class Buscar {
      public String busca (String valor){
          TemaTagDAO tt = new TemaTagDAO();
          this.temas = tt.obtener(valor);
+         if(temas.size()==0){
+             return "SinResultadosIH?faces-redirect=true";
+         }
          for(Tema t: temas){
              System.out.println(t.getNombreTema());
          }
