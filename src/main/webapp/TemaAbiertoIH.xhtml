@@ -86,6 +86,36 @@ The Bugtles, 2018.
 		        #{resp.respuesta}
                     </p:column>
                 </p:dataTable>
+                <!-- Parte de Efraín -->
+                <c:if test="#{manejoSesion.getUsuario()!=null}">
+                    <h:form id="respF" enctype="multipart/form-data" style="float: right; overflow: auto;">
+                        <p:panelGrid columns="3" style="border-collapse: collapse;">
+                            <h:outputLabel for="resp"
+                                           value="Su respuesta:" />
+                            <p:inputTextarea id="resp"
+                                             value="#{respuestaNueva.respuesta}"
+                                             required="true"
+                                             requiredMessage="No ha escrito una respuesta."
+                                             validatorMessage="Respuesta inválida."
+                                             placeholder="Respuesta"
+                                             maxlength="4000"
+                                             cols="70">
+                                <f:validateRegex pattern="^(\S)+(\s|\S)*$" />
+                            </p:inputTextarea>
+                            <p:message id="respMsj" for="resp" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Enviar"
+                                                 icon="ui-icon-check"
+                                                 action="#{respuestaNueva.respuestaNueva(temaAbierto.tema,manejoSesion.usuario)}"
+                                                 ajax="false"
+                                                 validateClient="true"
+                                                 style="float: right; overflow: auto;" />
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </c:if>
+
             </p:layoutUnit>
         </p:layout>
     </h:body>
