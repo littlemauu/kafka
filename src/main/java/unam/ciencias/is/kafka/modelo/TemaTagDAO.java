@@ -56,6 +56,7 @@ public class TemaTagDAO extends AbstractDAO<TemaTag> {
         query=session.createQuery(sql);
         List<TemaTag> tematags= (List<TemaTag>) query.list();
         ArrayList<Tema> temas = new ArrayList<Tema>();
+        if(tematags.size()==0) return temas;
         for(TemaTag tt : tematags){
             Tema t = tt.getTema();
             temas.add(t);
