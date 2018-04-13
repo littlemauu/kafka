@@ -47,6 +47,7 @@ The Bugtles, 2018.
                             <p:inputText id="corr"
                                          value="#{registrarCuenta.correo}"
                                          required="true"
+                                         size="30"
                                          validatorMessage="El correo debe ser @ciencias.unam.mx."
                                          placeholder="ejemplo@ciencias.unam.mx">
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@ciencias.unam.mx$" />
@@ -58,6 +59,7 @@ The Bugtles, 2018.
                             <p:inputText id="nom"
                                          value="#{registrarCuenta.nombre}"
                                          required="true"
+                                         size="30"
                                          validatorMessage="Nombre de usuario inválido."
                                          placeholder="nombre">
                                 <f:validateLength minimum="3" maximum="13" />
@@ -69,6 +71,7 @@ The Bugtles, 2018.
                                            value="*Contraseña:" />
                             <p:password id="pss"
                                         value="#{registrarCuenta.contrasena}"
+                                         size="30"
                                         inline="true"
                                         feedback="true"
                                         promptLabel="Ingrese su contraseña"
@@ -85,6 +88,7 @@ The Bugtles, 2018.
 
                             <h:outputLabel for="vrf" value="*Reingrese su contraseña:" />
                             <p:password id="vrf" value="#{registrarCuenta.verifContrasena}"
+                                         size="30"
                                         lang="es"
                                         validatorMessage="Las contraseñas no coinciden.">
                             </p:password>
