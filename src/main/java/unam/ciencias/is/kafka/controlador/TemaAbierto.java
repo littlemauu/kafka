@@ -100,7 +100,7 @@ class RespondeComparator implements Comparator<Responde> {
 
     @Override
     public int compare(Responde r1, Responde r2) {
-        return r2.getIdResponde() - r1.getIdResponde();
+        return r1.getIdResponde() - r2.getIdResponde();
     }
 
 }
