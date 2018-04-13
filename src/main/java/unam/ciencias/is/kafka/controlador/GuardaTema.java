@@ -7,8 +7,6 @@
  * -Ledesma Granados Roberto A.
  */
 package unam.ciencias.is.kafka.controlador;
-import java.util.HashSet;
-import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import unam.ciencias.is.kafka.modelo.Tema;
@@ -70,11 +68,13 @@ public class GuardaTema {
     public void setTags(String tags){
         this.tags=tags;
     }
-    public String guardaTema(){
+    public String guardaTema(Usuario us){
         String dir="";
+        idUsuario=us.getIdUsuario();
         UsuarioDAO user = new UsuarioDAO();
-        usuario = user.select(idUsuario);
-        Tema tema = new Tema(usuario, nombreTema, descripcion);
+        //usuario = user.select(idUsuario);
+        usuario=us;
+        Tema tema = new Tema(us, nombreTema, descripcion);
         TemaDAO temaDAO = new TemaDAO();
         temaDAO.insert(tema);
         dir ="PaginaPrincipalIH";
