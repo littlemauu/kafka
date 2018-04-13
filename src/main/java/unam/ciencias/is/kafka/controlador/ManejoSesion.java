@@ -90,7 +90,7 @@ public class ManejoSesion {
             return "PaginaPrincipalIH?faces-redirect=true";
         }
         else{
-            return "IniciarIH?faces-redirect=true";
+            return "InicioFallidoIH?faces-redirect=true";
         }     
     }
     
@@ -99,4 +99,7 @@ public class ManejoSesion {
         return "PaginaPrincipalIH?faces-redirect=true";
     }
 
+    public String vuelve(){
+        return "PaginaPrincipalIH?faces-redirect=true";
+    }
 }
