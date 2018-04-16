@@ -18,6 +18,7 @@ The Bugtles, 2018.
         <title>Buscar</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -32,6 +33,7 @@ The Bugtles, 2018.
                     <p:layoutUnit position="east" size="20%">
 		        <p:button outcome="PaginaPrincipalIH" id="home"
                                   value="Página Principal"
+                                  style="float: right; overflow: auto;"
                                   icon="ui-icon-home" />
 		    </p:layoutUnit>
                 </p:layout>
@@ -58,12 +60,6 @@ The Bugtles, 2018.
                                              action="#{buscar.busca(buscar.valor)}"
                                              id="ajax"
                                              style="float: right; overflow: auto;" />
-                            <p:commandButton value="Volver"
-                                             icon="ui-icon-check"
-                                             action="#{manejoSesion.vuelve()}"
-                                             id="aja"
-                                             style="float: right; overflow: auto;" />
-                                             
                         </f:facet>
                     </p:panelGrid>
                 </h:form>

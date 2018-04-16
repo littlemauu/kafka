@@ -17,6 +17,7 @@ The Bugtles, 2018.
         <title>Iniciar Sesion</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -28,6 +29,12 @@ The Bugtles, 2018.
                     <p:layoutUnit position="west" size="20%">
                         <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
                     </p:layoutUnit>
+                    <p:layoutUnit position="east" size="20%">
+		        <p:button outcome="PaginaPrincipalIH" id="home"
+                                  value="Página Principal"
+                                  style="float: right; overflow: auto;"
+                                  icon="ui-icon-home" />
+		    </p:layoutUnit>
                 </p:layout>
             </p:layoutUnit>
             
@@ -67,15 +74,7 @@ The Bugtles, 2018.
                                              icon="ui-icon-check"
                                              action="#{manejoSesion.estado()}"
                                              id="ajax"
-                                             style="float: right; overflow: auto;" />
-                            
-                            <p:commandButton value="Volver"
-                                             icon="ui-icon-check"
-                                             action="#{manejoSesion.vuelve()}"
-                                             id="aja"
-                                             style="float: right; overflow: auto;" />
-                                             
-                                             
+                                             style="float: right; overflow: auto;" />                    
                         </f:facet>
                         
                     </p:panelGrid>
