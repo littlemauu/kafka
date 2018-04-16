@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The Bugtles, 2018.
+-Aguilar Espíndola Ossiel.
+-Barajas Tenorio Efraín.
+-García Ramos Mauricio E.
+-García Ruíz Paulo.
+-Ledesma Granados Roberto A.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Iniciar Sesion</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="30%">
+                <p:layout>
+                    <p:layoutUnit position="center">
+                        <p:messages globalOnly="true" autoUpdate="true" />      
+                    </p:layoutUnit>
+                    <p:layoutUnit position="west" size="20%">
+                        <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
+                    </p:layoutUnit>
+                    <p:layoutUnit position="east" size="20%">
+		        <p:button outcome="PaginaPrincipalIH" id="home"
+                                  value="Página Principal"
+                                  style="float: right; overflow: auto;"
+                                  icon="ui-icon-home" />
+		    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="center" >
+                <h:form id="reg" enctype="multipart/form-data">
+                    <p:panelGrid columns="3" style="border-collapse: collapse;">
+                        <f:facet name="header">Iniciar Sesion</f:facet>
+
+                        <h:outputLabel for="nom"
+                                       value="*Nombre de usuario:" />
+                        <p:inputText id="nom"
+                                     value="#{manejoSesion.nombre}"
+                                     required="true"
+                                     validatorMessage="Nombre de usuario inválido."
+                                     placeholder="nombre">
+                            
+                            
+                        </p:inputText>
+                        <p:message id="nomMsj" for="nom" />
+
+                        <h:outputLabel for="pss"
+                                       value="*Contraseña:" />
+                        <p:password id="pss"
+                                    value="#{manejoSesion.contrasena}"
+                                    inline="true"
+                                    promptLabel="Ingrese su contraseña"
+                                    lang="es"
+                                    maxlength="16"
+                                    required="true">
+                            
+                        </p:password>
+                        <p:message id="passwordMsj" for="pss"/>
+
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Iniciar"
+                                             icon="ui-icon-check"
+                                             action="#{manejoSesion.estado()}"
+                                             id="ajax"
+                                             style="float: right; overflow: auto;" />                    
+                        </f:facet>
+                        
+                    </p:panelGrid>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="20%">
+                <ul>
+                    <li>Todos los campos señalados con un asterisco (*) son obligatorios.</li>
+                    <li>La cuenta de correo electrónico debe ser <span style="color: darkturquoise;">@ciencias.unam.mx</span>.</li>
+                    <li>La contraseña debe constar de al menos ocho caracteres.</li>
+                </ul>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

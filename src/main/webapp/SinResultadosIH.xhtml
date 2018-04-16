@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+The Bugtles, 2018.
+-Aguilar Espíndola Ossiel.
+-Barajas Tenorio Efraín.
+-García Ramos Mauricio E.
+-García Ruíz Paulo.
+-Ledesma Granados Roberto A.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Buscar</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="30%">
+                <p:layout>
+                    <p:layoutUnit position="center">
+                        <p:messages autoUpdate="true" />   
+                    </p:layoutUnit>
+                    <p:layoutUnit position="west" size="20%">
+                        <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
+                    </p:layoutUnit>
+                    <p:layoutUnit position="east" size="20%">
+		        <p:button outcome="PaginaPrincipalIH" id="home"
+                                  value="Página Principal"
+                                  style="float: right; overflow: auto;"
+                                  icon="ui-icon-home" />
+		    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+            
+            <!--FORMULARIO-->
+            <p:layoutUnit position="center" >
+                <h:form id="reg" enctype="multipart/form-data">
+                    <p:panelGrid columns="3" style="border-collapse: collapse;">
+                        <f:facet name="header">Buscar(No se encontraron resultados)</f:facet>
+
+                        <h:outputLabel for="nom"
+                                       value="*Buscar" />
+                        <p:inputText id="nom"
+                                     value="#{buscar.valor}"
+                                     required="true"
+                                     placeholder="tag">
+                           
+                        </p:inputText>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Buscar"
+                                             icon="ui-icon-check"
+                                             action="#{buscar.busca(buscar.valor)}"
+                                             id="ajax"
+                                             style="float: right; overflow: auto;" />             
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:layoutUnit>
+            
+            <!-- PRINCIPIA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
+            
+            <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
+            <p:layoutUnit position="east" size="20%">
+            <h:form>
+                <c:if test="#{manejoSesion.getUsuario()==null}">
+                    <!--manejoSesion.hayUsuario()-->
+                    <p:panel>
+                    <!-- Aquí va el formulario para iniciar sesión -->
+                    <f:facet name="footer">
+                        ¿No tiene cuenta en Kafka? Cree una <h:link outcome="RegistrarCuentaIH" value="aquí" />.
+                    </f:facet>          
+                    </p:panel>
+                    <p:panel>
+                        <f:facet name="footer">
+                            <h:link outcome="IniciarIH" value="Iniciar Sesión" />.
+                        </f:facet>
+                    </p:panel>
+                </c:if>
+                    <c:if test="#{manejoSesion.getUsuario()!=null}">
+                    <!--manejoSesion.hayUsuario()-->
+                    <p:panel>
+                    <!-- Botón para cerrar sesión-->
+                    <f:facet name="footer">
+                        Hola, <p:commandLink value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" action="PaginaPrincpialIH?faces-redurect=true"/>
+                        <p:commandButton  action="#{manejoSesion.salir()}" value="Cerrar Sesión" icon="ui-icon-enterlink" style="background-color:#333367; color: white;"/>
+                    </f:facet>          
+                    </p:panel>
+                </c:if>
+            </h:form>   
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
