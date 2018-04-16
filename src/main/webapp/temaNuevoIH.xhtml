@@ -19,6 +19,7 @@ The Bugtles, 2018.
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
         <title>Tema nuevo</title>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -36,6 +37,12 @@ The Bugtles, 2018.
                              src="imagenes/kafka-logo.png"
                              alt="Logo de Kafka" />
                     </p:layoutUnit>
+                    <p:layoutUnit position="east" size="20%">
+		        <p:button outcome="PaginaPrincipalIH" id="home"
+                                  value="Página Principal"
+                                  style="float: right; overflow: auto;"
+                                  icon="ui-icon-home" />
+		    </p:layoutUnit>
                 </p:layout>
             </p:layoutUnit>
             <!-- AQUI COMIENZA EL AREA DE TOMA DE DATOS PARA EL TEMA NUEVO -->
@@ -80,12 +87,6 @@ The Bugtles, 2018.
                         </p:panel>
                         <!-- BARRA CON LOS BOTONES PARA REGRESAR A LA PAGINA PRINCIPAL, LIMPIAR Y GUARDAR -->
                         <p:toolbar>
-                            <f:facet name="left">
-                                <p:button outcome="PaginaPrincipalIH"
-                                          id="home"
-                                          value="Pagina Principal"
-                                          icon="ui-icon-home" />
-                            </f:facet>
                             <f:facet name="right">
                                 <p:button outcome="temaNuevoIH"
                                           value="Limpiar"
