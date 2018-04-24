@@ -59,7 +59,7 @@ The Bugtles, 2018.
                                                value="Nombre:"/>
                                 <p:inputText size="50"
                                              id="nombre"
-                                             value="#{guardaTema.nombreTema}"
+                                             value="#{temaNuevo.nombreTema}"
                                              required="true"
                                              placeholder="**Nombre del Tema**"
                                              requiredMessage="El tema requiere un nombre"/>
@@ -69,7 +69,7 @@ The Bugtles, 2018.
                                 <p:inputTextarea autoResize="false"
                                                  cols="50"
                                                  id="desc"
-                                                 value="#{guardaTema.descripcion}"
+                                                 value="#{temaNuevo.descripcion}"
                                                  required="true"
                                                  requiredMessage="Debe dar una descripcion para el Tema"
                                                  placeholder="**Descripcion del Tema**"/>
@@ -78,7 +78,7 @@ The Bugtles, 2018.
                                                value="Tags:" />
                                 <p:inputText size="50"
                                              id="tags"
-                                             value="#{guardaTema.tags}"
+                                             value="#{temaNuevo.tags}"
                                              required="true"
                                              placeholder="**Tags separados por comas**"
                                              requiredMessage="Debe proporcionar al menos un Tag"/>
@@ -94,7 +94,7 @@ The Bugtles, 2018.
                                           iconPos="right"/>
                                 <p:commandButton value=" Guardar "
                                                  update="panel"
-                                                 action="#{guardaTema.guardaTema(manejoSesion.usuario)}"
+                                                 action="#{temaNuevo.guardaTema(manejoSesion.usuario)}"
                                                  dir="temaNuevoIH" 
                                                  icon="ui-icon-check"
                                                  iconPos="right">
@@ -135,7 +135,8 @@ The Bugtles, 2018.
                     -Los Tags deben estar separados por comas, sin espacios.
                 </li><li/>
                 <li style="color: black">
-                    -Al menos debe escribirse un Tag
+                    -Al menos debe escribirse un Tag.[Un Tag es una palabra 
+                    que puede identificar al tema por crear]. 
                 </li>
             </p:layoutUnit>
         </p:layout>
