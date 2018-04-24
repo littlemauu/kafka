@@ -24,7 +24,7 @@ import unam.ciencias.is.kafka.modelo.TemaTagDAO;
  */
 @ManagedBean
 @ViewScoped
-public class GuardaTema {
+public class GuardaTema {/*
     private int idTema;
     private int idUsuario;
     private Usuario usuario;
@@ -95,5 +95,5 @@ public class GuardaTema {
             ttdao.insert(tt);
         }
         return dir;
-    }
+    }*/
 }
