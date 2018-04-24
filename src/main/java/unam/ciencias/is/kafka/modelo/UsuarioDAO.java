@@ -120,7 +120,9 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         SessionFactory factory; 
         factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
-        String sql = "SELECT * FROM usuario where nombre ='" + nombre + "' and contrasena ='" + contrasena+"'";
+        String sql = "SELECT * FROM usuario where nombre ='" + nombre +
+                     "' and contrasena ='" + contrasena + "' and " +
+                     "estado = 'ACTIVO'";
         SQLQuery query = session.createSQLQuery(sql);
         query.addEntity(Usuario.class);
         List<Usuario> usuarios = query.list();
