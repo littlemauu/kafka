@@ -11,7 +11,6 @@ The Bugtles, 2018.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
@@ -61,7 +60,7 @@ The Bugtles, 2018.
                                              id="nombre"
                                              value="#{modificarTema.nombreT}"
                                              required="true"
-                                             placeholder="**Nombre del Tema**"
+                                             placeholder="**Nuevo Nombre**"
                                              requiredMessage="El tema requiere un nombre"/>
                                 <p:message for="nombre"/>
                                 <p:outputLabel for="desc"
@@ -72,7 +71,7 @@ The Bugtles, 2018.
                                                  value="#{modificarTema.descripcionT}"
                                                  required="true"
                                                  requiredMessage="Debe dar una descripcion para el Tema"
-                                                 placeholder="**Descripcion del Tema**"/>
+                                                 placeholder="**Nueva Descripcion**"/>
                                 <p:message for="desc"/>
                             </h:panelGrid>
                         </p:panel>

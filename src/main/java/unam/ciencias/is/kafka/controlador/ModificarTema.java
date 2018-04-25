@@ -26,7 +26,6 @@ import java.util.Map;
 @ManagedBean //(name = "modificarTema", eager = true)
 @ViewScoped
 public class ModificarTema{
-    private static final long serialVersionUID = 1L;
     //-----------------------------------------------------------------//
     private String idTema = "1";
     private Tema tema;
