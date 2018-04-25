@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The Bugtles, 2018.
+-Aguilar Espíndola Ossiel.
+-Barajas Tenorio Efraín.
+-García Ramos Mauricio E.
+-García Ruíz Paulo.
+-Ledesma Granados Roberto A.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <title>Modificar Tema</title>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <!-- ENCABEZADO CON EL LOGO DE KAFKA Y DONDE APARECERAN MENSAJES DE ERROR -->
+            <p:layoutUnit position="north"
+                          size="30%">
+                <p:layout>
+                    <p:layoutUnit position="center">
+                        <p:messages id="message"
+                                    autoUpdate="true" />   
+                    </p:layoutUnit>
+                    <p:layoutUnit position="west"
+                                  size="30%">
+                        <img id="logo"
+                             src="imagenes/kafka-logo.png"
+                             alt="Logo de Kafka" />
+                    </p:layoutUnit>
+                    <p:layoutUnit position="east" size="20%">
+		        <p:button outcome="PaginaPrincipalIH" id="home"
+                                  value="Página Principal"
+                                  style="float: right; overflow: auto;"
+                                  icon="ui-icon-home" />
+		    </p:layoutUnit>
+                </p:layout>
+            </p:layoutUnit>
+            <!-- AQUI COMIENZA EL AREA DE TOMA DE DATOS PARA EL TEMA NUEVO -->
+            <p:layoutUnit position="center">
+                <c:if test="#{manejoSesion.getUsuario()!=null}">
+                    <!-- ESTO APARECE EN EL PANEL CENTRAL SOLO SI HAY UNA SECIÓN INICIADA-->
+                    <h:form>
+                        <!-- PANEL DE TOMA DE DATOS -->
+                        <p:panel id="panel"
+                                 header="Nuevos Datos">
+                            <h:panelGrid columns="3"
+                                         cellpadding="5">
+                                <p:outputLabel for="nombre"
+                                               value="Nombre:"/>
+                                <p:inputText size="50"
+                                             id="nombre"
+                                             value="#{modificarTema.nombreT}"
+                                             required="true"
+                                             placeholder="**Nombre del Tema**"
+                                             requiredMessage="El tema requiere un nombre"/>
+                                <p:message for="nombre"/>
+                                <p:outputLabel for="desc"
+                                               value="Descripcion:"/>
+                                <p:inputTextarea autoResize="false"
+                                                 cols="50"
+                                                 id="desc"
+                                                 value="#{modificarTema.descripcionT}"
+                                                 required="true"
+                                                 requiredMessage="Debe dar una descripcion para el Tema"
+                                                 placeholder="**Descripcion del Tema**"/>
+                                <p:message for="desc"/>
+                            </h:panelGrid>
+                        </p:panel>
+                        <!-- BARRA CON LOS BOTONES PARA REGRESAR A LA PAGINA PRINCIPAL, LIMPIAR Y GUARDAR -->
+                        <p:toolbar>
+                            <f:facet name="right">
+                                <p:button outcome="modificarTemaIH?tid=#{modificarTema.tID()}"
+                                          value="Limpiar"
+                                          icon="ui-icon-refresh"
+                                          iconPos="right"/>
+                                <p:commandButton value=" Guardar "
+                                                 update="panel"
+                                                 action="#{modificarTema.editTema()}"
+                                                 dir="modificarTemaIH" 
+                                                 icon="ui-icon-check"
+                                                 iconPos="right">
+                                    <f:param name="tID" value="#{datosTema.tID()}"/>
+                                </p:commandButton>
+                            </f:facet>
+                        </p:toolbar>
+                    </h:form>
+                </c:if>
+                <c:if test="#{manejoSesion.getUsuario()==null}">
+                    <!--ESTO SE PRESENTA EN EL PANEL CENTRAL SI NO HAY UNA SECIÓN INICIADA-->
+                    <p:panel style=" background-image: url(imagenes/kafka-logo.png); background-repeat: no-repeat; background-position: right">
+                        <li style="color: aqua; font-family: fantasy; font-weight: 500; font-size: 200%">
+                            - / | \ - / | \ - / | \ - / | \ - / | \ - / | \ - / | \ - / | \- / | \ - / | \-
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-style: italic; font-weight: 500; font-size: 200%">
+                            Lo sentimos, pero para estar aquí debes tener iniciada seción.
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-style: italic; font-weight: 500; font-size: 200%">
+                            Si ya habias iniciado seción, es posible que esta haya caducado
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-style: italic; font-weight: 500; font-size: 200%">
+                            Ahora debes <h:link value="regresar" outcome="PaginaPrincipalIH" style="color: aqua" /> para iniciar seción
+                        </li>
+                        <li style="color: aqua; font-family: fantasy; font-weight: 500; font-size: 200%">
+                            - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / -
+                        </li>
+                    </p:panel>
+                </c:if>
+            </p:layoutUnit>
+            <!-- INSTRUCCIONES PARA LA TOMA DE DATOS -->
+            <p:layoutUnit position="west"
+                          size="20%">
+                <li style="color: black">
+                    **Todos los campos son obligatorios**
+                </li><li/>
+                <li style="color: turquoise; font-style: italic">
+                    Datos Originales:
+                </li>
+                <li style="color: turquoise">
+                    Nombre: 
+                </li>
+                <li style="color: darkblue"> #{datosTema.dameNombre()} </li>
+                <li style="color: turquoise">
+                    Descripcion:
+                </li>
+                <li style="color: darkblue"> #{datosTema.dameDescr()} </li>
+                <li/>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

@@ -35,7 +35,9 @@ The Bugtles, 2018.
                                   value="Página Principal"
                                   style="float: right; overflow: auto;"
                                   icon="ui-icon-home" />
+                        
 		    </p:layoutUnit>
+                    
                 </p:layout>
             </p:layoutUnit>
             <p:layoutUnit position="center" >
@@ -76,6 +78,13 @@ The Bugtles, 2018.
                     </p:column>
                     <p:column>
                         <f:facet name="header">
+                            <!-- Boton para editar el Tema -->
+                            <c:if test="#{temaAbierto.autor.idUsuario==manejoSesion.getUsuario().idUsuario}">
+                                <p:button outcome="modificarTemaIH?tid=#{temaAbierto.tema.idTema}"
+                                          value="Modificar Tema."
+                                          style="float: right; overflow: auto; background-color: white"
+                                          icon="ui-icon-refresh"/>
+                            </c:if>
                             <!-- Pregunta -->
                             <div style="font-size: x-large;">
 		            #{temaAbierto.tema.nombreTema}
