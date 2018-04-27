@@ -61,6 +61,17 @@ The Bugtles, 2018.
                               value="Crear Tema Nuevo"
                               styleClass="ui-btn-b"/>
                 </c:if>
+                <!-- PRINCIPIA ELIMINAR USUARIO -->
+                <br />
+                <c:if test="#{manejoSesion.esAdmin()}">
+                    <h:form>
+                        <p:commandButton value="Eliminar usuario"
+                                         icon="ui-icon-cancel"
+                                         action="#{verPerfilDeUsuario.eliminarUsuario()}"
+                                         ajax="false" />
+                    </h:form>
+                </c:if>
+                <!-- TERMINA ELIMINAR USUARIO -->
             </p:layoutUnit>
             <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
             <p:layoutUnit position="east" size="20%">
