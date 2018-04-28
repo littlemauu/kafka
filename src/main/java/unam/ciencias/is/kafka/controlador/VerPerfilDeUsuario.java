@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import org.apache.commons.lang.RandomStringUtils;
 import unam.ciencias.is.kafka.modelo.Usuario;
 import unam.ciencias.is.kafka.modelo.UsuarioDAO;
@@ -28,7 +29,7 @@ public class VerPerfilDeUsuario {
     
     public String eliminarUsuario() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuario = usuarioDAO.select(28);
+        usuario = usuarioDAO.select(45);
         
         if ("INACTIVO".equals(usuario.getEstado()) ||
             "ADM".equals(usuario.getRol())) {
@@ -48,13 +49,25 @@ public class VerPerfilDeUsuario {
         usuario.setImagen("imagenes/usuarios/eliminado.png");
         usuarioDAO.update(usuario);
         
-        if (imgAnt != null && !imgAnt.equals("imagenes/usuarios/default.png")) {
+        if (imgAnt != null && !imgAnt.equals("imagenes/usuarios/default.png") &&
+                !imgAnt.equals("imagenes/usuarios/eliminado.png")) {
             
             try {
-                File archivo = new File(imgAnt);
-                archivo.delete();
+                ServletContext servletContext
+                    = (ServletContext) FacesContext.getCurrentInstance().
+                            getExternalContext().getContext();
+                String ruta = (servletContext.getRealPath("/")) + imgAnt;
+                File archivo = new File(ruta);
+                
+                if (archivo.delete())
+                    System.out.println("%%% ELIMINADO %%%");
+                else
+                    System.out.println("%%% IMPOSIBLE: <" + archivo.getName() +
+                            "> %%% " + archivo.getCanonicalPath());
+                
             }
             catch (Exception e) {
+                System.out.println("%%% ERROR AL BORRAR: <" + imgAnt + "> %%%");
                 e.printStackTrace();
             }
             
