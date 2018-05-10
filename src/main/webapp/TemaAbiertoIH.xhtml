@@ -35,9 +35,7 @@ The Bugtles, 2018.
                                   value="Página Principal"
                                   style="float: right; overflow: auto;"
                                   icon="ui-icon-home" />
-                        
 		    </p:layoutUnit>
-                    
                 </p:layout>
             </p:layoutUnit>
             <p:layoutUnit position="center" >
@@ -61,7 +59,12 @@ The Bugtles, 2018.
                                             style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
                             <br />
                             <div style="text-align: center">
-		            #{temaAbierto.autor.nombre}
+                                <c:if test="#{manejoSesion.getUsuario()!=null}">
+                                    <p:link outcome="VerPerfilDeUsuarioIH?idu=#{temaAbierto.autor.idUsuario}" value="#{temaAbierto.autor.nombre}" />
+                                </c:if>
+                                <c:if test="#{manejoSesion.getUsuario()==null}">
+                                    #{temaAbierto.autor.nombre}
+                                </c:if>
                             </div>
                         </f:facet>
                         <!-- Datos de quienes responden -->
@@ -71,20 +74,18 @@ The Bugtles, 2018.
                                             alt="Imagen de perfil"
                                             style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
                             <br />
-		            #{resp.usuario.nombre}
+                            <c:if test="#{manejoSesion.getUsuario()!=null}">
+                                <p:link outcome="VerPerfilDeUsuarioIH?idu=#{resp.usuario.idUsuario}" value="#{resp.usuario.nombre}" />
+                            </c:if>
+                            <c:if test="#{manejoSesion.getUsuario()==null}">
+                                #{resp.usuario.nombre}
+                            </c:if> 
                             <br />
 		            #{resp.fecha}
                         </div>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <!-- Boton para editar el Tema -->
-                            <c:if test="#{temaAbierto.autor.idUsuario==manejoSesion.getUsuario().idUsuario}">
-                                <p:button outcome="modificarTemaIH?tid=#{temaAbierto.tema.idTema}"
-                                          value="Modificar Tema."
-                                          style="float: right; overflow: auto; background-color: white"
-                                          icon="ui-icon-refresh"/>
-                            </c:if>
                             <!-- Pregunta -->
                             <div style="font-size: x-large;">
 		            #{temaAbierto.tema.nombreTema}

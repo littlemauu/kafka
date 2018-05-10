@@ -20,7 +20,7 @@ import unam.ciencias.is.kafka.modelo.Usuario;
  * @author ludus
  */
 public class TemaDAO extends AbstractDAO<Tema> {
-    
+     
     public List<Tema> listaDeTemas() {
         List<Tema> resultado = null;
         Transaction transaccion = null;
