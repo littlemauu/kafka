@@ -68,34 +68,6 @@ The Bugtles, 2018.
             <!-- PRINCIPIA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
             
             <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
-            <p:layoutUnit position="east" size="20%">
-            <h:form>
-                <c:if test="#{manejoSesion.getUsuario()==null}">
-                    <!--manejoSesion.hayUsuario()-->
-                    <p:panel>
-                    <!-- Aquí va el formulario para iniciar sesión -->
-                    <f:facet name="footer">
-                        ¿No tiene cuenta en Kafka? Cree una <h:link outcome="RegistrarCuentaIH" value="aquí" />.
-                    </f:facet>          
-                    </p:panel>
-                    <p:panel>
-                        <f:facet name="footer">
-                            <h:link outcome="IniciarIH" value="Iniciar Sesión" />.
-                        </f:facet>
-                    </p:panel>
-                </c:if>
-                    <c:if test="#{manejoSesion.getUsuario()!=null}">
-                    <!--manejoSesion.hayUsuario()-->
-                    <p:panel>
-                    <!-- Botón para cerrar sesión-->
-                    <f:facet name="footer">
-                        Hola, <p:commandLink value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" action="PaginaPrincpialIH?faces-redurect=true"/>
-                        <p:commandButton  action="#{manejoSesion.salir()}" value="Cerrar Sesión" icon="ui-icon-enterlink" style="background-color:#333367; color: white;"/>
-                    </f:facet>          
-                    </p:panel>
-                </c:if>
-            </h:form>   
-            </p:layoutUnit>
         </p:layout>
     </h:body>
 </html>

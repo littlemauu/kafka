@@ -15,12 +15,13 @@ The Bugtles, 2018.
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Perfil de Usuario</title>
+        <title>#{verPerfilDeUsuario.usuario.nombre}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
         <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
+        <f:event type="preRenderView" listener="#{verPerfilDeUsuario.init}" />
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="30%">
                 <p:layout>
@@ -31,71 +32,63 @@ The Bugtles, 2018.
                         <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
                     </p:layoutUnit>
                     <p:layoutUnit position="east" size="20%">
-		        <p:button outcome="PaginaPrincipalIH" id="home"
+                        <p:button outcome="PaginaPrincipalIH" id="home"
                                   value="Página Principal"
                                   style="float: right; overflow: auto;"
                                   icon="ui-icon-home" />
-		    </p:layoutUnit>
+                    </p:layoutUnit>
                 </p:layout>
             </p:layoutUnit>
-                    <p:layoutUnit position="west" size="25%"> 
+            <c:if test="#{manejoSesion.usuario != null}">
+                <p:layoutUnit position="west" size="25%">
+                    <f:facet name="header">
+                        Perfil de #{verPerfilDeUsuario.usuario.nombre}
+                    </f:facet>
+                    <div style="text-align: center">
                         <p:graphicImage value="#{verPerfilDeUsuario.rutaDeImagen(verPerfilDeUsuario.usuario)}"
-                                                class="imgperf"
-                                                alt="Imagen de perfil"
-                                                style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
-                                #{verPerfilDeUsuario.usuario.nombre}
-                                <br />
-                                #{verPerfilDeUsuario.usuario.correo}@ciencias.unam.mx
-                                <br />
-                    </p:layoutUnit>           
-            <!-- PRINCIPIA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
+                                        class="imgperf"
+                                        alt="Imagen de perfil"
+                                        style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
+                        #{verPerfilDeUsuario.usuario.nombre}
+                        <br />
+                        #{verPerfilDeUsuario.usuario.correo}@ciencias.unam.mx
+                        <br />
+                        <c:if test="#{manejoSesion.esAdmin()}">
+                            <c:if test="#{verPerfilDeUsuario.esUsuarioEliminable()}">
+                                <h:form>
+                                    <p:commandButton value="Eliminar usuario"
+                                                     icon="ui-icon-cancel"
+                                                     action="#{verPerfilDeUsuario.eliminarUsuario()}"
+                                                     ajax="false" />
+                                </h:form>
+                            </c:if>
+                        </c:if>
+                    </div>
+                </p:layoutUnit>
+            </c:if>
             <p:layoutUnit position="center" >
-                <p:panel header="Actividad del usuario">
-                    <p:dataList value="#{verPerfilDeUsuario.actividad}" var="tema" id="Temas"
-                                type="none"
-                                paginator="true" rows="10"
-                                paginatorTemplate="{FirstPageLink}
-                                {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}
-                                {RowsPerPageDropdown}"
-                                rowsPerPageTemplate="10,20,30"
-                                emptyMessage="No se encontraron temas."
-                                currentPageReportTemplate="">
-                        <f:facet name="header">
-                        </f:facet>
-                        <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}"
-                                value="+#{tema.nombreTema}: #{buscar.preambulo(tema.descripcion)}" style="margin-left:10px" />
-                        <br/>
-                    </p:dataList>
-                </p:panel>
-            </p:layoutUnit>
-            <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
-            <p:layoutUnit position="east" size="20%">
-            <h:form>
-                <c:if test="#{manejoSesion.getUsuario()==null}">
-                    <!--manejoSesion.hayUsuario()-->
-                    <p:panel>
-                    <!-- Aquí va el formulario para iniciar sesión -->
-                    <f:facet name="footer">
-                        ¿No tiene cuenta en Kafka? Cree una <h:link outcome="RegistrarCuentaIH" value="aquí" />.
-                    </f:facet>          
-                    </p:panel>
-                    <p:panel>
-                        <f:facet name="footer">
-                            <h:link outcome="IniciarIH" value="Iniciar Sesión" />.
-                        </f:facet>
+                <c:if test="#{manejoSesion.usuario != null}">
+                    <p:panel header="Actividad del usuario">
+                        <p:dataList value="#{verPerfilDeUsuario.actividad}" var="tema" id="Temas"
+                                    type="none"
+                                    paginator="true" rows="10"
+                                    paginatorTemplate="{FirstPageLink}
+                                    {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}
+                                    {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="10,20,30"
+                                    emptyMessage="El usuario no tiene actividad registrada."
+                                    currentPageReportTemplate="">
+                            <f:facet name="header">
+                            </f:facet>
+                            <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}"
+                                    value="+#{tema.nombreTema}: #{verPerfilDeUsuario.preambulo(tema.descripcion)}" style="margin-left:10px" />
+                            <br/>
+                        </p:dataList>
                     </p:panel>
                 </c:if>
-                    <c:if test="#{manejoSesion.getUsuario()!=null}">
-                    <!--manejoSesion.hayUsuario()-->
-                    <p:panel>
-                    <!-- Botón para cerrar sesión-->
-                    <f:facet name="footer">
-                        Hola, <p:commandLink value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" action="PaginaPrincpialIH?faces-redurect=true"/>
-                        <p:commandButton  action="#{manejoSesion.salir()}" value="Cerrar Sesión" icon="ui-icon-enterlink" style="background-color:#333367; color: white;"/>
-                    </f:facet>          
-                    </p:panel>
+                <c:if test="#{manejoSesion.usuario == null}">
+                    <h1>¡Alto ahí, pilluelo!</h1>
                 </c:if>
-            </h:form>   
             </p:layoutUnit>
         </p:layout>
     </h:body>
