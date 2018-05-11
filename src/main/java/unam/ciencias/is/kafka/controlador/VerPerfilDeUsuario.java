@@ -13,6 +13,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.io.File;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -22,6 +24,8 @@ import unam.ciencias.is.kafka.modelo.Tema;
 import unam.ciencias.is.kafka.modelo.TemaDAO;
 import unam.ciencias.is.kafka.modelo.Usuario;
 import unam.ciencias.is.kafka.modelo.Responde;
+import org.apache.commons.lang.RandomStringUtils;
+import unam.ciencias.is.kafka.modelo.Usuario;
 import unam.ciencias.is.kafka.modelo.UsuarioDAO;
 
 /**
@@ -48,7 +52,7 @@ public class VerPerfilDeUsuario {
         //activ HashSet, ya tiene todos los temas que necesito y se convierte a lista
         HashSet<Tema> activ = new HashSet<Tema>(usuario.getTemas());
         HashSet<Responde> resps = new HashSet<Responde> (usuario.getRespondes());
-        /**
+        /*
          * Recorre un ciclo HashSet resp y agrega, en cada
          * iteración, el tema asociado al objetoo de tipo Responde actual
          */
