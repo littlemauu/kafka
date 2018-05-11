@@ -61,6 +61,15 @@ public class VerPerfilDeUsuario {
         
     }
 
+    public String rutaDeImagen(Usuario usr) {
+	String ruta = usr.getImagen();
+
+	if (ruta == null)
+	    ruta = "imagenes/usuarios/default.png";
+
+	return ruta;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }

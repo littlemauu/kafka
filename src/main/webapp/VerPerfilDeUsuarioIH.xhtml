@@ -38,22 +38,16 @@ The Bugtles, 2018.
 		    </p:layoutUnit>
                 </p:layout>
             </p:layoutUnit>
-                        <f:facet name="header">
-                            <!-- Datos de quien pregunta -->
-                            <p:graphicImage value="#{temaAbierto.rutaDeImagen(temaAbierto.autor)}"
-                                            class="imgperf"
-                                            alt="Imagen de perfil"
-                                            style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
-                            <br />
-                            <div style="text-align: center">
-                                <c:if test="#{manejoSesion.getUsuario()!=null}">
-                                    <p:link outcome="VerPerfilDeUsuarioIH?idu=#{temaAbierto.autor.idUsuario}" value="#{temaAbierto.autor.nombre}" />
-                                </c:if>
-                                <c:if test="#{manejoSesion.getUsuario()==null}">
-                                    #{temaAbierto.autor.nombre}
-                                </c:if>
-                            </div>
-                        </f:facet>            
+                    <p:layoutUnit position="west" size="25%"> 
+                        <p:graphicImage value="#{verPerfilDeUsuario.rutaDeImagen(verPerfilDeUsuario.usuario)}"
+                                                class="imgperf"
+                                                alt="Imagen de perfil"
+                                                style="display: block; margin-left: auto; margin-right: auto; width: 150px; height: 150px;" />
+                                #{verPerfilDeUsuario.usuario.nombre}
+                                <br />
+                                #{verPerfilDeUsuario.usuario.correo}@ciencias.unam.mx
+                                <br />
+                    </p:layoutUnit>           
             <!-- PRINCIPIA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
             <p:layoutUnit position="center" >
                 <p:panel header="Actividad del usuario">
