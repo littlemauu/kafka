@@ -84,7 +84,7 @@ The Bugtles, 2018.
                     <p:panel>
                     <!-- Botón para cerrar sesión-->
                     <f:facet name="footer">
-                        Hola, <p:commandLink value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" action="PaginaPrincpialIH?faces-redurect=true"/>
+                        Hola, <p:link value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" outcome="VerPerfilDeUsuarioIH?idu=#{manejoSesion.usuario.idUsuario}"/>
                         <p:commandButton  action="#{manejoSesion.salir()}" value="Cerrar Sesión" icon="ui-icon-enterlink" style="background-color:#333367; color: white;"/>
                     </f:facet>          
                     </p:panel>
