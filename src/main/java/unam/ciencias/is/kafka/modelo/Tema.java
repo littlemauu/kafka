@@ -84,10 +84,11 @@ public class Tema  implements java.io.Serializable {
     public void setTemaTags(Set temaTags) {
         this.temaTags = temaTags;
     }
-
-
-
-
+    
+    public void modifica (String nombre, String desc){
+        this.nombreTema=nombre;
+        this.descripcion=desc;
+    }
 }
 
 
