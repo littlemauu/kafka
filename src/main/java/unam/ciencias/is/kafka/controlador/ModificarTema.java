@@ -89,7 +89,7 @@ public class ModificarTema{
         idTema=params.get("tID");
         int id=Integer.parseInt(idTema);
         edit(id);
-        return "PaginaPrincipalIH";
+        return "TemaAbiertoIH?faces-redirect=true&idt=" + idTema;
     }
     /**
      * Regresa el ID del tema que fue seleccionado para editar
