@@ -1,4 +1,4 @@
-/*
+    /*
  * The Bugtles, 2018.
  * -Aguilar Espíndola Ossiel.
  * -Barajas Tenorio Efraín.
@@ -35,8 +35,19 @@ public class PaginaPrincipal {
                         getExternalContext().getRequest();
         String usuarioNombre = request.getParameter("actn");
         String usuarioHash = request.getParameter("acth");
+        String porRegistrar = request.getParameter("rgt");
         
-        if(usuarioNombre != null && usuarioHash != null) {
+        if (porRegistrar != null && porRegistrar.equals("true")) {
+                FacesMessage avisoDeActPendiente =
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                 "Revise su bandeja de correo electrónico " +
+                                 "y siga las instrucciones recibidas para " +
+                                 "activar su cuenta, por favor.",
+                                 null);
+                FacesContext.getCurrentInstance().
+                        addMessage(null,avisoDeActPendiente);
+        }
+        else if(usuarioNombre != null && usuarioHash != null) {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             
             if (usuarioDAO.activarCuenta(usuarioNombre,usuarioHash)) {

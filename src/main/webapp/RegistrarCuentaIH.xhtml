@@ -12,11 +12,13 @@ The Bugtles, 2018.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Registrar cuenta</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -28,86 +30,101 @@ The Bugtles, 2018.
                     <p:layoutUnit position="west" size="20%">
                         <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
                     </p:layoutUnit>
+		    <p:layoutUnit position="east" size="20%">
+		        <p:button outcome="PaginaPrincipalIH" id="home"
+                                  value="Página Principal"
+                                  style="float: right; overflow: auto;"
+                                  icon="ui-icon-home" />
+		    </p:layoutUnit>
                 </p:layout>
             </p:layoutUnit>
             <p:layoutUnit position="center" >
-                <h:form id="reg" enctype="multipart/form-data">
-                    <p:panelGrid columns="3" style="border-collapse: collapse;">
-                        <f:facet name="header">Registro de nuevo usuario</f:facet>
+                <c:if test="#{manejoSesion.getUsuario()==null}">
+                    <h:form id="reg" enctype="multipart/form-data">
+                        <p:panelGrid columns="3" style="border-collapse: collapse;">
+                            <f:facet name="header">Registro de nuevo usuario</f:facet>
 
-                        <h:outputLabel for="corr"
-                                       value="*Correo electrónico:" />
-                        <p:inputText id="corr"
-                                     value="#{registrarCuenta.correo}"
-                                     required="true"
-                                     validatorMessage="El correo debe ser @ciencias.unam.mx."
-                                     placeholder="ejemplo@ciencias.unam.mx">
-                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@ciencias.unam.mx$" />
-                        </p:inputText>
-                        <p:message id="corrMsj" for="corr" />
+                            <h:outputLabel for="corr"
+                                           value="*Correo electrónico:" />
+                            <p:inputText id="corr"
+                                         value="#{registrarCuenta.correo}"
+                                         required="true"
+                                         size="30"
+                                         validatorMessage="El correo debe ser @ciencias.unam.mx."
+                                         placeholder="ejemplo@ciencias.unam.mx">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@ciencias.unam.mx$" />
+                            </p:inputText>
+                            <p:message id="corrMsj" for="corr" />
 
-                        <h:outputLabel for="nom"
-                                       value="*Nombre de usuario:" />
-                        <p:inputText id="nom"
-                                     value="#{registrarCuenta.nombre}"
-                                     required="true"
-                                     validatorMessage="Nombre de usuario inválido."
-                                     placeholder="nombre">
-                            <f:validateLength minimum="3" maximum="13" />
-                            <f:validateRegex pattern="^\S+$" />
-                        </p:inputText>
-                        <p:message id="nomMsj" for="nom" />
+                            <h:outputLabel for="nom"
+                                           value="*Nombre de usuario:" />
+                            <p:inputText id="nom"
+                                         value="#{registrarCuenta.nombre}"
+                                         required="true"
+                                         size="30"
+                                         validatorMessage="Nombre de usuario inválido."
+                                         placeholder="nombre">
+                                <f:validateLength minimum="3" maximum="13" />
+                                <f:validateRegex pattern="^[_A-Za-z0-9-]+$" />
+                            </p:inputText>
+                            <p:message id="nomMsj" for="nom" />
 
-                        <h:outputLabel for="pss"
-                                       value="*Contraseña:" />
-                        <p:password id="pss"
-                                    value="#{registrarCuenta.contrasena}"
-                                    inline="true"
-                                    feedback="true"
-                                    promptLabel="Ingrese su contraseña"
-                                    weakLabel="Débil"
-                                    goodLabel="Aceptable"
-                                    strongLabel="Fuerte"
-                                    lang="es"
-                                    maxlength="16"
-                                    match="vrf"
-                                    required="true">
-                            <f:validateLength minimum="8" maximum="16" />
-                        </p:password>
-                        <p:message id="passwordMsj" for="pss"/>
+                            <h:outputLabel for="pss"
+                                           value="*Contraseña:" />
+                            <p:password id="pss"
+                                        value="#{registrarCuenta.contrasena}"
+                                         size="30"
+                                        inline="true"
+                                        feedback="true"
+                                        promptLabel="Ingrese su contraseña"
+                                        weakLabel="Débil"
+                                        goodLabel="Aceptable"
+                                        strongLabel="Fuerte"
+                                        lang="es"
+                                        maxlength="16"
+                                        match="vrf"
+                                        required="true">
+                                <f:validateLength minimum="8" maximum="16" />
+                            </p:password>
+                            <p:message id="passwordMsj" for="pss"/>
 
-                        <h:outputLabel for="vrf" value="*Reingrese su contraseña:" />
-                        <p:password id="vrf" value="#{registrarCuenta.verifContrasena}"
-                                    lang="es"
-                                    validatorMessage="Las contraseñas no coinciden.">
-                        </p:password>
-                        <p:message id="vrfMsj" for="vrf"/>
+                            <h:outputLabel for="vrf" value="*Reingrese su contraseña:" />
+                            <p:password id="vrf" value="#{registrarCuenta.verifContrasena}"
+                                         size="30"
+                                        lang="es"
+                                        validatorMessage="Las contraseñas no coinciden.">
+                            </p:password>
+                            <p:message id="vrfMsj" for="vrf"/>
 
-                        <h:outputLabel for="imp" value="Imagen de perfil:" />
-                        <p:fileUpload id="imp"
-                                      fileLimit="1"
-                                      fileUploadListener="#{registrarCuenta.subirImagen}"
-                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                                      sizeLimit="5242880"
-                                      auto="false"
-                                      label="Elegir imagen:"
-                                      uploadLabel="Subir"
-                                      cancelLabel="Cancelar"
-                                      invalidSizeMessage="La imagen no debe exceder los 5 Mb"
-                                      invalidFileMessage="Formato de imagen no aceptado"
-                                      fileLimitMessage="Ya subió una imagen" />
-                        <p:message id="impMsj" for="imp"/>
+                            <h:outputLabel for="imp" value="Imagen de perfil:" />
+                            <p:fileUpload id="imp"
+                                          fileLimit="1"
+                                          fileUploadListener="#{registrarCuenta.subirImagen}"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          sizeLimit="5242880"
+                                          auto="false"
+                                          label="Elegir imagen:"
+                                          uploadLabel="Subir"
+                                          cancelLabel="Cancelar"
+                                          invalidSizeMessage="La imagen no debe exceder los 5 Mb"
+                                          invalidFileMessage="Formato de imagen no aceptado"
+                                          fileLimitMessage="Ya subió una imagen" />
+                            <p:message id="impMsj" for="imp"/>
 
-                        <f:facet name="footer">
-                            <p:commandButton value="Enviar"
-                                             icon="ui-icon-check"
-                                             action="#{registrarCuenta.registrarCuenta()}"
-                                             ajax="false"
-                                             validateClient="true"
-                                             style="float: right; overflow: auto;" />
-                        </f:facet>
-                    </p:panelGrid>
-                </h:form>
+                            <f:facet name="footer">
+                                <p:commandButton value="Enviar"
+                                                 icon="ui-icon-check"
+                                                 action="#{registrarCuenta.registrarCuenta()}"
+                                                 ajax="false"
+                                                 validateClient="true"
+                                                 style="float: right; overflow: auto;" />
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                </c:if>
+                <c:if test="#{manejoSesion.getUsuario()!=null}">
+                    <h1>¿Cómo llegó aquí? Sólo puede tener una cuenta.</h1>
+                </c:if>
             </p:layoutUnit>
             <p:layoutUnit position="west" size="20%">
                 <ul>

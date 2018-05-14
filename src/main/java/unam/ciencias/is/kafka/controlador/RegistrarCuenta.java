@@ -8,27 +8,20 @@
  */
 package unam.ciencias.is.kafka.controlador;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import unam.ciencias.is.kafka.modelo.Usuario;
 import unam.ciencias.is.kafka.modelo.UsuarioDAO;
 
@@ -44,6 +37,7 @@ public class RegistrarCuenta {
     private String contrasena;
     private String verifContrasena;
     private String imagen;
+    private int puerto;
     //private String rol;
     //private String estado;
     
@@ -53,29 +47,39 @@ public class RegistrarCuenta {
     public String registrarCuenta() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         String correoTmp;
+        HttpServletRequest request
+                = (HttpServletRequest) FacesContext.getCurrentInstance().
+                        getExternalContext().getRequest();
+        puerto = request.getServerPort();
         
         correoTmp = correo.substring(0,correo.indexOf('@'));
         correo = correoTmp;
+        boolean correoOcupado = usuarioDAO.existeUsuarioConCorreo(correo);
+        boolean nombreOcupado = usuarioDAO.existeUsuarioConNombre(nombre);
         
-        if (usuarioDAO.existeUsuarioConCorreo(correo)) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     "La dirección de correo electrónico \"" +
-                                     correo + "@ciencias.unam.mx\" ya está " +
-                                     "registrada. Proporcione una " +
-                                     "dirección distinta.",
-                                     null));
-            return "";
-        }
-        else if (usuarioDAO.existeUsuarioConNombre(nombre)) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     "El nombre de usuario \"" + nombre +
-                                     "\" ya está registrado." +
-                                     " Elija un nombre de usuario distinto.",
-                                     null));
+        if (correoOcupado || nombreOcupado) {
+            
+            if (correoOcupado) {
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                "La dirección de correo electrónico \""
+                                + correo + "@ciencias.unam.mx\" ya está "
+                                + "registrada. Proporcione una "
+                                + "dirección distinta.",
+                                null));
+            }
+            
+            if (nombreOcupado) {
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                "El nombre de usuario \"" + nombre
+                                + "\" ya está registrado."
+                                + " Elija un nombre de usuario distinto.",
+                                null));
+            }
+            
             return "";
         }
         
@@ -86,7 +90,7 @@ public class RegistrarCuenta {
         usuario.setContrasena(contrasena);
         
         if (imagen == null || imagen.length() == 0)
-            imagen = "imagenes/usuarios/#default.jpg";
+            imagen = "imagenes/usuarios/default.png";
         
         usuario.setImagen(imagen);
         usuario.setRol("USR");
@@ -95,13 +99,13 @@ public class RegistrarCuenta {
         Email.enviarEmail(correo + "@ciencias.unam.mx",
                           "Finalice su registro en Kafka",
                           generarTextoDeEmail(usuario));
-        return "PaginaPrincipalIH?faces-redirect=true";
+        return "PaginaPrincipalIH?faces-redirect=true&rgt=true";
     }
     
     public String generarTextoDeEmail(Usuario usuario) {
         String pagina =
-                "http://localhost:8080/kafka/?actn=" + usuario.getNombre() +
-                "&acth=" + usuario.hashCode();
+                "http://localhost:" + puerto + "/kafka/?actn=" +
+                usuario.getNombre() + "&acth=" + usuario.hashCode();
         String texto =
                 "Para activar su cuenta en Kafka, por favor, " +
                 "haga clic en el siguiente enlace: " + pagina;

@@ -18,6 +18,7 @@ The Bugtles, 2018.
         <title>Buscar</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -29,6 +30,12 @@ The Bugtles, 2018.
                     <p:layoutUnit position="west" size="20%">
                         <img id="logo" src="imagenes/kafka-logo.png" alt="Logo de Kafka" />
                     </p:layoutUnit>
+                    <p:layoutUnit position="east" size="20%">
+		        <p:button outcome="PaginaPrincipalIH" id="home"
+                                  value="Página Principal"
+                                  style="float: right; overflow: auto;"
+                                  icon="ui-icon-home" />
+		    </p:layoutUnit>
                 </p:layout>
             </p:layoutUnit>
             
@@ -52,13 +59,7 @@ The Bugtles, 2018.
                                              icon="ui-icon-check"
                                              action="#{buscar.busca(buscar.valor)}"
                                              id="ajax"
-                                             style="float: right; overflow: auto;" />
-                            <p:commandButton value="Volver"
-                                             icon="ui-icon-check"
-                                             action="#{manejoSesion.vuelve()}"
-                                             id="aja"
-                                             style="float: right; overflow: auto;" />
-                                             
+                                             style="float: right; overflow: auto;" />             
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
@@ -67,34 +68,6 @@ The Bugtles, 2018.
             <!-- PRINCIPIA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
             
             <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
-            <p:layoutUnit position="east" size="20%">
-            <h:form>
-                <c:if test="#{manejoSesion.getUsuario()==null}">
-                    <!--manejoSesion.hayUsuario()-->
-                    <p:panel>
-                    <!-- Aquí va el formulario para iniciar sesión -->
-                    <f:facet name="footer">
-                        ¿No tiene cuenta en Kafka? Cree una <h:link outcome="RegistrarCuentaIH" value="aquí" />.
-                    </f:facet>          
-                    </p:panel>
-                    <p:panel>
-                        <f:facet name="footer">
-                            <h:link outcome="IniciarIH" value="Iniciar Sesión" />.
-                        </f:facet>
-                    </p:panel>
-                </c:if>
-                    <c:if test="#{manejoSesion.getUsuario()!=null}">
-                    <!--manejoSesion.hayUsuario()-->
-                    <p:panel>
-                    <!-- Botón para cerrar sesión-->
-                    <f:facet name="footer">
-                        Hola, <p:commandLink value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" action="PaginaPrincpialIH?faces-redurect=true"/>
-                        <p:commandButton  action="#{manejoSesion.salir()}" value="Cerrar Sesión" icon="ui-icon-enterlink" style="background-color:#333367; color: white;"/>
-                    </f:facet>          
-                    </p:panel>
-                </c:if>
-            </h:form>   
-            </p:layoutUnit>
         </p:layout>
     </h:body>
 </html>

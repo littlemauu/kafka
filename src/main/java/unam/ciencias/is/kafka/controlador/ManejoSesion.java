@@ -73,11 +73,13 @@ public class ManejoSesion {
         return usuario;
     }
 
-    
     public boolean hayUsuario(){
         return this.getUsuario()!=null;
     }
-    
+
+    public boolean esAdmin() {
+	return usuario != null && "ADM".equals(usuario.getRol());
+    }
     
     public String estado(){
         

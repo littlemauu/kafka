@@ -18,6 +18,7 @@ The Bugtles, 2018.
         <title>Kafka</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
+        <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
         <f:event type="preRenderView" listener="#{paginaPrincipal.activar}" />
@@ -45,13 +46,21 @@ The Bugtles, 2018.
                                 emptyMessage="No hay temas registrados."
                                 currentPageReportTemplate="">
                         <f:facet name="header">
-                          Últimos temas abiertos. <span id="tema">¿Ninguno resuelve sus dudas? Puede abrir un tema nuevo: <p:button outcome="temaNuevoIH" value="Crear Tema Nuevo" styleClass="ui-btn-b"/></span>
+                          Últimos temas abiertos. <span id="tema"></span>
                         </f:facet>
                         <h:link outcome="TemaAbiertoIH?idt=#{tema.idTema}"
                                 value="+#{tema.nombreTema}: #{paginaPrincipal.preambulo(tema.descripcion)}" style="margin-left:10px" />
                         <br/>
                     </p:dataList>
                 </p:panel>
+            </p:layoutUnit>
+            <p:layoutUnit position="south">
+                <c:if test="#{manejoSesion.getUsuario()!=null}">
+                    ¿Ninguno resuelve sus dudas? Puede abrir un tema nuevo: 
+                    <p:button outcome="temaNuevoIH"
+                              value="Crear Tema Nuevo"
+                              styleClass="ui-btn-b"/>
+                </c:if>
             </p:layoutUnit>
             <!-- FINALIZA PARTE DE DESPLIEGUE DE LISTA DE TEMAS -->
             <p:layoutUnit position="east" size="20%">
@@ -75,7 +84,7 @@ The Bugtles, 2018.
                     <p:panel>
                     <!-- Botón para cerrar sesión-->
                     <f:facet name="footer">
-                        Hola, <p:commandLink value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" action="PaginaPrincpialIH?faces-redurect=true"/>
+                        Hola, <p:link value="#{manejoSesion.usuario.getNombre()}" style="margin-right:10px; color: red" outcome="VerPerfilDeUsuarioIH?idu=#{manejoSesion.usuario.idUsuario}"/>
                         <p:commandButton  action="#{manejoSesion.salir()}" value="Cerrar Sesión" icon="ui-icon-enterlink" style="background-color:#333367; color: white;"/>
                     </f:facet>          
                     </p:panel>

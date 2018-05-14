@@ -11,14 +11,13 @@ The Bugtles, 2018.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="estilo/general.css"></link>
-        <title>Tema nuevo</title>
+        <title>Modificar Tema</title>
         <link rel="icon" href="imagenes/kafka-icono.ico"></link>
     </h:head>
     <h:body>
@@ -52,16 +51,16 @@ The Bugtles, 2018.
                     <h:form>
                         <!-- PANEL DE TOMA DE DATOS -->
                         <p:panel id="panel"
-                                 header="Tema Nuevo">
+                                 header="Nuevos Datos">
                             <h:panelGrid columns="3"
                                          cellpadding="5">
                                 <p:outputLabel for="nombre"
                                                value="Nombre:"/>
                                 <p:inputText size="50"
                                              id="nombre"
-                                             value="#{temaNuevo.nombreTema}"
+                                             value="#{modificarTema.nombreT}"
                                              required="true"
-                                             placeholder="**Nombre del Tema**"
+                                             placeholder="**Nuevo Nombre**"
                                              requiredMessage="El tema requiere un nombre"/>
                                 <p:message for="nombre"/>
                                 <p:outputLabel for="desc"
@@ -69,36 +68,27 @@ The Bugtles, 2018.
                                 <p:inputTextarea autoResize="false"
                                                  cols="50"
                                                  id="desc"
-                                                 value="#{temaNuevo.descripcion}"
+                                                 value="#{modificarTema.descripcionT}"
                                                  required="true"
                                                  requiredMessage="Debe dar una descripcion para el Tema"
-                                                 placeholder="**Descripcion del Tema**"/>
+                                                 placeholder="**Nueva Descripcion**"/>
                                 <p:message for="desc"/>
-                                <p:outputLabel for="tags"
-                                               value="Tags:" />
-                                <p:inputText size="50"
-                                             id="tags"
-                                             value="#{temaNuevo.tags}"
-                                             required="true"
-                                             placeholder="**Tags separados por comas**"
-                                             requiredMessage="Debe proporcionar al menos un Tag"/>
-                                <p:message for="tags"/>
                             </h:panelGrid>
                         </p:panel>
                         <!-- BARRA CON LOS BOTONES PARA REGRESAR A LA PAGINA PRINCIPAL, LIMPIAR Y GUARDAR -->
                         <p:toolbar>
                             <f:facet name="right">
-                                <p:button outcome="temaNuevoIH"
+                                <p:button outcome="modificarTemaIH?tid=#{modificarTema.tID()}"
                                           value="Limpiar"
                                           icon="ui-icon-refresh"
                                           iconPos="right"/>
                                 <p:commandButton value=" Guardar "
                                                  update="panel"
-                                                 action="#{temaNuevo.guardaTema(manejoSesion.usuario)}"
-                                                 dir="temaNuevoIH" 
+                                                 action="#{modificarTema.editTema()}"
+                                                 dir="modificarTemaIH" 
                                                  icon="ui-icon-check"
                                                  iconPos="right">
-                                <p:resetInput target="panel" />
+                                    <f:param name="tID" value="#{datosTema.tID()}"/>
                                 </p:commandButton>
                             </f:facet>
                         </p:toolbar>
@@ -129,15 +119,20 @@ The Bugtles, 2018.
             <p:layoutUnit position="west"
                           size="20%">
                 <li style="color: black">
-                    -Todos los campos son obligatorios.
+                    **Todos los campos son obligatorios**
                 </li><li/>
-                <li style="color: black">
-                    -Los Tags deben estar separados por comas, sin espacios.
-                </li><li/>
-                <li style="color: black">
-                    -Al menos debe escribirse un Tag.[Un Tag es una palabra 
-                    que puede identificar al tema por crear]. 
+                <li style="color: turquoise; font-style: italic">
+                    Datos Originales:
                 </li>
+                <li style="color: turquoise">
+                    Nombre: 
+                </li>
+                <li style="color: darkblue"> #{datosTema.dameNombre()} </li>
+                <li style="color: turquoise">
+                    Descripcion:
+                </li>
+                <li style="color: darkblue"> #{datosTema.dameDescr()} </li>
+                <li/>
             </p:layoutUnit>
         </p:layout>
     </h:body>
