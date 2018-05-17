@@ -22,6 +22,6 @@ public class EliminarResponde {
         Responde responde=RespondeDAO.select(id);
         RespondeDAO.delete(responde);
         
-        return "TemaAbiertoIH";
+        return "TemaAbiertoIH?faces-redirect=true&idt=" + responde.getIdResponde();
     
 }
