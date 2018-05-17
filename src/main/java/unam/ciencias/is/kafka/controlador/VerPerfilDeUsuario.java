@@ -112,7 +112,7 @@ public class VerPerfilDeUsuario {
   
     }
     
-    public String eliminarUsuario() {
+    public String eliminarxUsuario() {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
         if ("INACTIVO".equals(usuario.getEstado()) ||

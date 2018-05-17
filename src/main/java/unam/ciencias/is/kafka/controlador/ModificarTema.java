@@ -17,6 +17,7 @@ import unam.ciencias.is.kafka.modelo.Tag;
 import unam.ciencias.is.kafka.modelo.TagDAO;
 import unam.ciencias.is.kafka.modelo.TemaTag;
 import unam.ciencias.is.kafka.modelo.TemaTagDAO;
+import unam.ciencias.is.kafka.modelo.RespondeDAO;
 import java.util.Map;
 
 /**
@@ -124,6 +125,7 @@ public class ModificarTema{
      * @param tema Tema al que se le añadiran Tags
      */
     public void creaTags(Tema tema){
+        
         String[] tl=this.newtagsList();
         String tag; int idTag;
         TagDAO tDAO=new TagDAO(); Tag t;
