@@ -98,6 +98,7 @@ public class ManejoSesion {
     
     public String salir(){
         this.setUsuario(null);
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "PaginaPrincipalIH?faces-redirect=true";
     }
 
