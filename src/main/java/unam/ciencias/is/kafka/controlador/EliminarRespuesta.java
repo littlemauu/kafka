@@ -16,6 +16,9 @@ import unam.ciencias.is.kafka.modelo.RespondeDAO;
  *
  * @author efrain
  */
+
+@ManagedBean 
+@ViewScoped
 public class EliminarRespuesta {
       public String eliminaResponde(int id){
         RespondeDAO RespondeDAO = new RespondeDAO();
