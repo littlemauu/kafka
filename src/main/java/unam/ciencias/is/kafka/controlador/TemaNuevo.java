@@ -7,6 +7,7 @@
  * -Ledesma Granados Roberto A.
  */
 package unam.ciencias.is.kafka.controlador;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.util.ArrayUtils;
@@ -74,18 +75,24 @@ public class TemaNuevo {
      * nombre del tema
      * @return lista de tags del tema nuevo
      */
-    private String[] tagsList(){
-        String[] namelist = nombreTema.split(" "); int nll = namelist.length;
-        String[] tagslist = tags.split(",");   int tll = tagslist.length;
-        String[] res = new String[nll+tll];
-        for(int i=0;i<res.length;i++){
-            if(i<nll){
-                res[i]=namelist[i];
-            }else{
-                res[i]=tagslist[i-nll];
+    private ArrayList<String> tagsList(){
+        String[] namelist = nombreTema.split(" ");
+        String[] tagslist = tags.split(",");
+        ArrayList<String> respuesta =new ArrayList<String>();
+        String tag="";
+        for (String nameListI : namelist) {
+            tag=fTag(nameListI);
+            if (!respuesta.contains(tag)) {
+                respuesta.add(tag);
             }
         }
-        return res;
+        for (String tagsListI : tagslist) {
+            tag=fTag(tagsListI);
+            if (!respuesta.contains(tag)) {
+                respuesta.add(tag);
+            }
+        }
+        return respuesta;
     }
     /**
      * Da formato a los tags quitando puntos y comas y pasando todas las letras
@@ -113,7 +120,7 @@ public class TemaNuevo {
         TemaDAO temaDAO = new TemaDAO();
         temaDAO.insert(tema);
         dir ="PaginaPrincipalIH";
-        String[] tagsList = tagsList();
+        ArrayList<String> tagsList = tagsList();
         String tag;
         Tag t;TagDAO tdao = new TagDAO();
         TemaTag tt; TemaTagDAO ttdao = new TemaTagDAO();
