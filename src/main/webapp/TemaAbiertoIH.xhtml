@@ -103,6 +103,17 @@ The Bugtles, 2018.
                             </div>
                         </f:facet>
                         <!-- Respuestas -->
+                        <c:if test="#{manejoSesion.esAdmin()}">
+                            <h:form>
+                                <p:commandButton value="Eliminar respuesta"
+                                                  icon="ui-icon-cancel"
+                            action="#{eliminaResponde.eliminaResponde(resp.idResponde)}"
+                                      ajax="false"
+                                        style="float: right; overflow: auto;" />
+                                  </h:form>
+                            
+                            </h:form>
+                        </c:if>
 		        #{resp.respuesta}
                     </p:column>
                 </p:dataTable>
