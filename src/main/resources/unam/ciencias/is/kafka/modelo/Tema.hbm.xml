@@ -17,13 +17,13 @@
         <property name="descripcion" type="string">
             <column name="descripcion" length="4000" not-null="true" />
         </property>
-        <set name="respondes" table="responde" inverse="true" lazy="true" fetch="select">
+        <set name="respondes" table="responde" inverse="true" lazy="true" fetch="select" cascade="delete">
             <key>
                 <column name="id_tema" not-null="true" />
             </key>
             <one-to-many class="unam.ciencias.is.kafka.modelo.Responde" />
         </set>
-        <set name="temaTags" table="tema_tag" inverse="true" lazy="true" fetch="select">
+        <set name="temaTags" table="tema_tag" inverse="true" lazy="true" fetch="select" cascade="delete">
             <key>
                 <column name="id_tema" not-null="true" />
             </key>

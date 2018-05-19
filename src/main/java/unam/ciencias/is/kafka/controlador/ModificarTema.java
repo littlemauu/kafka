@@ -17,6 +17,7 @@ import unam.ciencias.is.kafka.modelo.Tag;
 import unam.ciencias.is.kafka.modelo.TagDAO;
 import unam.ciencias.is.kafka.modelo.TemaTag;
 import unam.ciencias.is.kafka.modelo.TemaTagDAO;
+import unam.ciencias.is.kafka.modelo.RespondeDAO;
 import java.util.Map;
 
 /**
@@ -89,7 +90,7 @@ public class ModificarTema{
         idTema=params.get("tID");
         int id=Integer.parseInt(idTema);
         edit(id);
-        return "PaginaPrincipalIH";
+        return "TemaAbiertoIH?faces-redirect=true&idt=" + idTema;
     }
     /**
      * Regresa el ID del tema que fue seleccionado para editar
@@ -124,6 +125,7 @@ public class ModificarTema{
      * @param tema Tema al que se le añadiran Tags
      */
     public void creaTags(Tema tema){
+        
         String[] tl=this.newtagsList();
         String tag; int idTag;
         TagDAO tDAO=new TagDAO(); Tag t;

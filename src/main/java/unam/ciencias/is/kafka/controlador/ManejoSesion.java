@@ -74,7 +74,7 @@ public class ManejoSesion {
     }
 
     public boolean hayUsuario(){
-        return this.getUsuario()!=null;
+        return this.getUsuario()!=null || this.getUsuario().getEstado()=="ACTIVO";
     }
 
     public boolean esAdmin() {
@@ -98,6 +98,7 @@ public class ManejoSesion {
     
     public String salir(){
         this.setUsuario(null);
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "PaginaPrincipalIH?faces-redirect=true";
     }
 
