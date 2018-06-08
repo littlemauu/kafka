@@ -27,7 +27,6 @@ import javax.servlet.http.HttpSession;
  */
 @WebFilter(urlPatterns = {
     "/faces/VerPerfilDeUsuarioIH.xhtml",
-    "/faces/TemaAbiertoIH.xhtml",
     "/faces/modificarTemaIH.xhtml",
     "/faces/guardaTag.xhtml",
     "/faces/temaNuevoIH.xhtml"
